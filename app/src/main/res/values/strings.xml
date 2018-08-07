@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Mobicob</string>
+    <string name="text_accounts">All Counts</string>
+    <string name="hint_user">Username</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_pass">Password</string>
+    <string name="hint_num_campaña">No. Campaign</string>
+    <string name="hint_fecha">Deadline</string>
+    <string name="hint_unicom">Unicom</string>
+    <string name="hint_nic">Nic</string>
+    <string name="hint_nis_rad">NisRad</string>
+    <string name="hint_department">Departament</string>
+    <string name="text_login">Login</string>
+    <string name="error_message_user">invalid user</string>
+    <string name="error_message_pass">Required field</string>
+    <string name="error_valid_user_pass">Incorrect user or password</string>
+    <string name="action_settings">Setting</string>
+    <string name="text_hello">Hi,</string>
+    <string name="text_title">Mobicob</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Name</string>
+    <string name="codigo">0000</string>
+
+    <string name="work">Day\'s work</string>
+    <string name="home1">Assigned clients</string>
+    <string name="home2">Pending clients</string>
+    <string name="home3">Reported management</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_server">Server Error</string>
+    <string name="error_network">No connection network</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+</resources>
