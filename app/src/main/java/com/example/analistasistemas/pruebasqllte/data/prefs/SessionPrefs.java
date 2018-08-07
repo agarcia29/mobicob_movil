@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.example.analistasistemas.pruebasqllte.model.Data;
 import com.example.analistasistemas.pruebasqllte.model.User;
 
 public class SessionPrefs {
@@ -32,18 +33,18 @@ public class SessionPrefs {
 
     private final SharedPreferences mPrefs;
 
-    private boolean mIsLoggedIn = false;
+    private boolean mIsLoggedIn;
 
     public boolean isLoggedIn(){
         return mIsLoggedIn;
     }
 
-    public void saveUser(User user) {
-        if (user != null) {
+    public void saveAuthData(Data data) {
+        if (data != null) {
             SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString(PREF_user_EMAIL, user.getEmail());
-            editor.putInt(PREF_user_ID, user.getId_number());
-            editor.putString(PREF_user_TOKEN, user.getToken());
+            editor.putInt(PREF_user_ID, data.getId());
+            editor.putString(PREF_user_EMAIL, data.getEmail());
+            editor.putString(PREF_user_TOKEN, data.getJwt_token());
             editor.apply();
 
             mIsLoggedIn = true;

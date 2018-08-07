@@ -36,7 +36,7 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.assignedClientMenu:
-                Intent intent = new Intent(this, AssignmentsActivity.class );
+                Intent intent = new Intent(this, MainActivity.class );
                 startActivity(intent);
             break;
             case R.id.pendingClientMenu:

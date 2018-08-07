@@ -1,25 +1,15 @@
 package com.example.analistasistemas.pruebasqllte;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.analistasistemas.pruebasqllte.adapters.AssignmentsAdapter;
 import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiAdapter;
-import com.example.analistasistemas.pruebasqllte.data.prefs.SessionPrefs;
-import com.example.analistasistemas.pruebasqllte.model.Assignment;
+import com.example.analistasistemas.pruebasqllte.model.Tasks;
 
 import java.util.ArrayList;
 
@@ -27,20 +17,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.loopj.android.http.AsyncHttpClient.log;
-
-public class MainActivity extends AppCompatActivity implements Callback<ArrayList<Assignment>> {
+public class MainActivity extends AppCompatActivity implements Callback<ArrayList<Tasks>> {
 
     private AssignmentsAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // Redirección al Login
-        if (!SessionPrefs.get(this).isLoggedIn()) {
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-            return;
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
@@ -52,18 +34,18 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
 
         mAdapter = new AssignmentsAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        Call<ArrayList<Assignment>> call = MobicobApiAdapter.getApiServices().getAssigment();
+        Call<ArrayList<Tasks>> call = MobicobApiAdapter.getApiServices().getAssigment();
         call.enqueue(this);
 
     }
     @Override
-    public void onResponse(Call<ArrayList<Assignment>> call, Response<ArrayList<Assignment>> response) {
+    public void onResponse(Call<ArrayList<Tasks>> call, Response<ArrayList<Tasks>> response) {
 
         }
 
 
     @Override
-    public void onFailure(Call<ArrayList<Assignment>> call, Throwable t) {
+    public void onFailure(Call<ArrayList<Tasks>> call, Throwable t) {
 
     }
 

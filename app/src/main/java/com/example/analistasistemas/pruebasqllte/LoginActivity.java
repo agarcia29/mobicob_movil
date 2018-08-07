@@ -38,10 +38,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.analistasistemas.pruebasqllte.adapters.DataBody;
 import com.example.analistasistemas.pruebasqllte.adapters.LoginBody;
 import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiAdapter;
 import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiServices;
 import com.example.analistasistemas.pruebasqllte.data.prefs.SessionPrefs;
+import com.example.analistasistemas.pruebasqllte.model.Data;
 import com.example.analistasistemas.pruebasqllte.model.User;
 
 import java.util.ArrayList;
@@ -234,10 +236,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Call<User> loginCall = MobicobApiAdapter.getApiServices().login(new LoginBody(email, password));
-            loginCall.enqueue(new Callback<User>() {
+            Call<DataBody> loginCall = MobicobApiAdapter.getApiServices().login(new LoginBody(email, password));
+            loginCall.enqueue(new Callback<DataBody>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<DataBody> call, Response<DataBody> response) {
                     // Mostrar progreso
                     showProgress(false);
                     // Procesar errores
@@ -256,15 +258,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             return;
                         }
                         // Guardar afiliado en preferencias
-                        SessionPrefs.get(LoginActivity.this).saveUser(response.body());
 
-                        // Ir a la citas médicas
+                    }else{
+                        SessionPrefs.get(LoginActivity.this).saveAuthData(response.body().getData());
                         showMainScreen();
                     }
                 }
 
                     @Override
-                    public void onFailure (Call<User> call, Throwable t) {
+                    public void onFailure (Call<DataBody> call, Throwable t) {
                         showProgress(false);
                         showLoginError(t.getMessage());
                     }

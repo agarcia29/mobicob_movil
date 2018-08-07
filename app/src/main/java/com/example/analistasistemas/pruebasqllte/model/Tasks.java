@@ -2,7 +2,7 @@ package com.example.analistasistemas.pruebasqllte.model;
 
 import java.util.Date;
 
-public class Assignment {
+public class Tasks {
     private int taskId;
     private int userId;
     private Date dueDate;

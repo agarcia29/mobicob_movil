@@ -1,29 +1,32 @@
 package com.example.analistasistemas.pruebasqllte.adapters;
-import com.example.analistasistemas.pruebasqllte.model.Assignment;
-import com.example.analistasistemas.pruebasqllte.model.Client;
+import android.content.SharedPreferences;
+
+import com.example.analistasistemas.pruebasqllte.model.Data;
+import com.example.analistasistemas.pruebasqllte.model.Tasks;
 import com.example.analistasistemas.pruebasqllte.model.PendingClient;
 import com.example.analistasistemas.pruebasqllte.model.User;
-import com.example.analistasistemas.pruebasqllte.response.LoginResponse;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public interface MobicobApiServices {
 
+    @Headers({
+            "Authorization", "Bearer "+ ""
+    })
 
-    @GET("assignments")
-    Call<ArrayList<Assignment>> getAssigment();
+    @GET("tasks")
+    Call<ArrayList<Tasks>> getAssigment();
 
     @GET("pendingClients")
     Call<ArrayList<PendingClient>> getPendClient();
 
     @POST("sign_in")
-    Call<User> login(@Body LoginBody loginBody);
+    Call<DataBody> login(@Body LoginBody loginBody);
+
 }
