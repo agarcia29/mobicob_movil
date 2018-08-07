@@ -1,4 +1,4 @@
-package com.example.analistasistemas.pruebasqllte;
+package com.example.analistasistemas.pruebasqllte.activity;
 
 
 
@@ -7,7 +7,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,43 +15,32 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
 import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.analistasistemas.pruebasqllte.adapters.DataBody;
-import com.example.analistasistemas.pruebasqllte.adapters.LoginBody;
-import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiAdapter;
-import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiServices;
+import com.example.analistasistemas.pruebasqllte.R;
+import com.example.analistasistemas.pruebasqllte.wrappers.LoginResponseWrapper;
+import com.example.analistasistemas.pruebasqllte.wrappers.LoginRequestWrapper;
+import com.example.analistasistemas.pruebasqllte.network.RetrofitInstance;
 import com.example.analistasistemas.pruebasqllte.data.prefs.SessionPrefs;
-import com.example.analistasistemas.pruebasqllte.model.Data;
-import com.example.analistasistemas.pruebasqllte.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -236,10 +224,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Call<DataBody> loginCall = MobicobApiAdapter.getApiServices().login(new LoginBody(email, password));
-            loginCall.enqueue(new Callback<DataBody>() {
+            Call<LoginResponseWrapper> loginCall = RetrofitInstance.getApiServices().login(new LoginRequestWrapper(email, password));
+            loginCall.enqueue(new Callback<LoginResponseWrapper>() {
                 @Override
-                public void onResponse(Call<DataBody> call, Response<DataBody> response) {
+                public void onResponse(Call<LoginResponseWrapper> call, Response<LoginResponseWrapper> response) {
                     // Mostrar progreso
                     showProgress(false);
                     // Procesar errores
@@ -266,7 +254,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
 
                     @Override
-                    public void onFailure (Call<DataBody> call, Throwable t) {
+                    public void onFailure (Call<LoginResponseWrapper> call, Throwable t) {
                         showProgress(false);
                         showLoginError(t.getMessage());
                     }

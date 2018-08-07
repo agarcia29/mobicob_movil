@@ -1,4 +1,4 @@
-package com.example.analistasistemas.pruebasqllte;
+package com.example.analistasistemas.pruebasqllte.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,8 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.analistasistemas.pruebasqllte.R;
 import com.example.analistasistemas.pruebasqllte.adapters.AssignmentsAdapter;
-import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiAdapter;
+import com.example.analistasistemas.pruebasqllte.network.RetrofitInstance;
 import com.example.analistasistemas.pruebasqllte.model.Client;
 import com.example.analistasistemas.pruebasqllte.model.PendingClient;
 
@@ -37,7 +38,7 @@ public class AssignmentsActivity extends Activity {
         mAdapter = new AssignmentsAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        Call<ArrayList<PendingClient>> call = MobicobApiAdapter.getApiServices().getPendClient();
+        Call<ArrayList<PendingClient>> call = RetrofitInstance.getApiServices().getPendClient();
         Log.wtf("URL Called", call.request().url() + "");
 
         call.enqueue(new Callback<ArrayList<PendingClient>>() {

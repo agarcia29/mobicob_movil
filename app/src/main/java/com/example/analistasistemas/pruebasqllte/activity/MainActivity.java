@@ -1,4 +1,4 @@
-package com.example.analistasistemas.pruebasqllte;
+package com.example.analistasistemas.pruebasqllte.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,8 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.analistasistemas.pruebasqllte.R;
 import com.example.analistasistemas.pruebasqllte.adapters.AssignmentsAdapter;
-import com.example.analistasistemas.pruebasqllte.adapters.MobicobApiAdapter;
+import com.example.analistasistemas.pruebasqllte.network.RetrofitInstance;
 import com.example.analistasistemas.pruebasqllte.model.Tasks;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
 
         mAdapter = new AssignmentsAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        Call<ArrayList<Tasks>> call = MobicobApiAdapter.getApiServices().getAssigment();
+        Call<ArrayList<Tasks>> call = RetrofitInstance.getApiServices().getAssigment();
         call.enqueue(this);
 
     }

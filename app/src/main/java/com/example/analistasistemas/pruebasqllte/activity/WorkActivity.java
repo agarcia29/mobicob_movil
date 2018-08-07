@@ -1,4 +1,4 @@
-package com.example.analistasistemas.pruebasqllte;
+package com.example.analistasistemas.pruebasqllte.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.analistasistemas.pruebasqllte.R;
 import com.example.analistasistemas.pruebasqllte.data.prefs.SessionPrefs;
 
 public class WorkActivity extends AppCompatActivity implements View.OnClickListener {

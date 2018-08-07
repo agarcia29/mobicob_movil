@@ -1,11 +1,13 @@
-package com.example.analistasistemas.pruebasqllte.adapters;
+package com.example.analistasistemas.pruebasqllte.network;
+
+import com.example.analistasistemas.pruebasqllte.services.MobicobApiServices;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MobicobApiAdapter {
+public class RetrofitInstance {
 
     private static MobicobApiServices API_SERVICES;
 

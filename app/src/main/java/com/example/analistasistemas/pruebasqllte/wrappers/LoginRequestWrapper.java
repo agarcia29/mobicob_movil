@@ -1,11 +1,11 @@
-package com.example.analistasistemas.pruebasqllte.adapters;
+package com.example.analistasistemas.pruebasqllte.wrappers;
 
 import com.example.analistasistemas.pruebasqllte.model.User;
 
-public class LoginBody {
+public class LoginRequestWrapper {
     private User user;
 
-    public LoginBody(String email, String password) {
+    public LoginRequestWrapper(String email, String password) {
         setUser(new User());
         getUser().setEmail(email);
         getUser().setPassword(password);

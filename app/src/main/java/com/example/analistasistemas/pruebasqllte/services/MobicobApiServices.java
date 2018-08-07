@@ -1,10 +1,9 @@
-package com.example.analistasistemas.pruebasqllte.adapters;
-import android.content.SharedPreferences;
+package com.example.analistasistemas.pruebasqllte.services;
 
-import com.example.analistasistemas.pruebasqllte.model.Data;
+import com.example.analistasistemas.pruebasqllte.wrappers.LoginResponseWrapper;
+import com.example.analistasistemas.pruebasqllte.wrappers.LoginRequestWrapper;
 import com.example.analistasistemas.pruebasqllte.model.Tasks;
 import com.example.analistasistemas.pruebasqllte.model.PendingClient;
-import com.example.analistasistemas.pruebasqllte.model.User;
 
 import java.util.ArrayList;
 
@@ -16,10 +15,10 @@ import retrofit2.http.POST;
 
 public interface MobicobApiServices {
 
+
     @Headers({
             "Authorization", "Bearer "+ ""
     })
-
     @GET("tasks")
     Call<ArrayList<Tasks>> getAssigment();
 
@@ -27,6 +26,6 @@ public interface MobicobApiServices {
     Call<ArrayList<PendingClient>> getPendClient();
 
     @POST("sign_in")
-    Call<DataBody> login(@Body LoginBody loginBody);
+    Call<LoginResponseWrapper> login(@Body LoginRequestWrapper loginRequestWrapper);
 
 }

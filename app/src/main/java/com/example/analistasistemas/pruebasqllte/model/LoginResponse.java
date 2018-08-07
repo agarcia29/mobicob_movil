@@ -1,6 +1,6 @@
 package com.example.analistasistemas.pruebasqllte.model;
 
-public class Data {
+public class LoginResponse {
     private int id;
     private String email;
     private String jwt_token;
