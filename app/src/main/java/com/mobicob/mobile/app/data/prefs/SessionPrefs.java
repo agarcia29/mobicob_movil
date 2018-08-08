@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.mobicob.mobile.app.activity.LoginActivity;
 import com.mobicob.mobile.app.model.LoginResponse;
 
 public class SessionPrefs {
@@ -48,5 +49,9 @@ public class SessionPrefs {
 
             mIsLoggedIn = true;
         }
+    }
+
+    public static String getToken(Context context){
+        return SessionPrefs.get(context).mPrefs.getString(PREF_user_TOKEN, null);
     }
 }

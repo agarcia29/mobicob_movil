@@ -1,9 +1,20 @@
 package com.mobicob.mobile.app.network;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.mobicob.mobile.app.activity.LoginActivity;
+import com.mobicob.mobile.app.activity.MainActivity;
+import com.mobicob.mobile.app.data.prefs.SessionPrefs;
 import com.mobicob.mobile.app.services.MobicobApiServices;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -11,7 +22,7 @@ public class RetrofitInstance {
 
     private static MobicobApiServices API_SERVICES;
 
-    public static MobicobApiServices getApiServices(){
+    public static MobicobApiServices getApiServices(final Context context){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 

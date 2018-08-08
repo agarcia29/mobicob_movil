@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
+import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.wrappers.LoginResponseWrapper;
 import com.mobicob.mobile.app.wrappers.LoginRequestWrapper;
 import com.mobicob.mobile.app.network.RetrofitInstance;
@@ -224,7 +225,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Call<LoginResponseWrapper> loginCall = RetrofitInstance.getApiServices().login(new LoginRequestWrapper(email, password));
+            Call<LoginResponseWrapper> loginCall = RetrofitInstance.getApiServices(LoginActivity.this).login(new LoginRequestWrapper(email, password));
             loginCall.enqueue(new Callback<LoginResponseWrapper>() {
                 @Override
                 public void onResponse(Call<LoginResponseWrapper> call, Response<LoginResponseWrapper> response) {

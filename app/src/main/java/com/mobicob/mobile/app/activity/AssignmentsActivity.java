@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.adapters.AssignmentsAdapter;
+import com.mobicob.mobile.app.adapters.TasksAdapter;
 import com.mobicob.mobile.app.network.RetrofitInstance;
 import com.mobicob.mobile.app.model.Client;
 import com.mobicob.mobile.app.model.PendingClient;
@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class AssignmentsActivity extends Activity {
     private RecyclerView mRecyclerView;
-    private AssignmentsAdapter mAdapter;
+    private TasksAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,10 @@ public class AssignmentsActivity extends Activity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new AssignmentsAdapter();
+        mAdapter = new TasksAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        Call<ArrayList<PendingClient>> call = RetrofitInstance.getApiServices().getPendClient();
+        Call<ArrayList<PendingClient>> call = RetrofitInstance.getApiServices(AssignmentsActivity.this).getPendClient();
         Log.wtf("URL Called", call.request().url() + "");
 
         call.enqueue(new Callback<ArrayList<PendingClient>>() {
@@ -54,7 +54,7 @@ public class AssignmentsActivity extends Activity {
     }
     private void generatePendingClient(ArrayList<Client> pendingClientArrayList) {
         mRecyclerView = findViewById(R.id.recyclerViewAssignments);
-        mAdapter = new AssignmentsAdapter(pendingClientArrayList);
+        mAdapter = new TasksAdapter(pendingClientArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AssignmentsActivity.this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);

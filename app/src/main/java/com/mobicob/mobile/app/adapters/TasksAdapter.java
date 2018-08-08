@@ -11,15 +11,15 @@ import com.mobicob.mobile.app.model.Client;
 
 import java.util.ArrayList;
 
-public class AssignmentsAdapter extends RecyclerView.Adapter<AssignmentsAdapter.AssignmentsViewHolder> {
+public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsViewHolder> {
 
     private ArrayList<Client> mDataSet;
 
-    public AssignmentsAdapter(ArrayList<Client> mDataSet) {
+    public TasksAdapter(ArrayList<Client> mDataSet) {
         this.mDataSet = mDataSet;
     }
 
-    public AssignmentsAdapter() {
+    public TasksAdapter() {
         mDataSet = new ArrayList<>();
     }
 

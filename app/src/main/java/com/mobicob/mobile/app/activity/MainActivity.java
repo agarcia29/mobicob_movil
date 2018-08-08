@@ -1,5 +1,6 @@
 package com.mobicob.mobile.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.adapters.AssignmentsAdapter;
+import com.mobicob.mobile.app.adapters.TasksAdapter;
+import com.mobicob.mobile.app.data.prefs.SessionPrefs;
 import com.mobicob.mobile.app.network.RetrofitInstance;
-import com.mobicob.mobile.app.model.Tasks;
+import com.mobicob.mobile.app.model.Task;
 
 import java.util.ArrayList;
 
@@ -18,9 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<ArrayList<Tasks>> {
-
-    private AssignmentsAdapter mAdapter;
+public class MainActivity extends AppCompatActivity implements Callback<ArrayList<Task>> {
+    private RecyclerView mRecyclerView;
+    private TasksAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,22 +35,33 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new AssignmentsAdapter();
+        mAdapter = new TasksAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        Call<ArrayList<Tasks>> call = RetrofitInstance.getApiServices().getAssigment();
+        Call<ArrayList<Task>> call = RetrofitInstance.getApiServices(MainActivity.this).
+                getAssigment("Bearer "+SessionPrefs.getToken(MainActivity.this));
         call.enqueue(this);
 
     }
     @Override
-    public void onResponse(Call<ArrayList<Tasks>> call, Response<ArrayList<Tasks>> response) {
+    public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
+        showScreen();
 
         }
 
 
+
+
     @Override
-    public void onFailure(Call<ArrayList<Tasks>> call, Throwable t) {
+    public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
 
     }
+    private void showScreen() {
+        Intent intent = new Intent(MainActivity.this,WorkActivity.class);
+        startActivity(intent);
+    }
+
+    /** Method to generate List of notice using RecyclerView with custom adapter*/
+
 
 
     @Override
