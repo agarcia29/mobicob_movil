@@ -7,12 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.adapters.TasksAdapter;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
+import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.model.TaskResponse;
+import com.mobicob.mobile.app.model.TasksList;
 import com.mobicob.mobile.app.network.RetrofitInstance;
 import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;
 
 import java.util.ArrayList;
 
@@ -20,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<ArrayList<Task>> {
+public class MainActivity extends AppCompatActivity implements Callback<ArrayList<TasksList>> {
     private RecyclerView mRecyclerView;
     private TasksAdapter mAdapter;
     @Override
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
-        RecyclerView mRecyclerView = (RecyclerView)findViewById(R.id.recyclerViewAssignments);
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
         mRecyclerView.setHasFixedSize(true);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
@@ -37,28 +42,26 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
 
         mAdapter = new TasksAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        Call<ArrayList<Task>> call = RetrofitInstance.getApiServices(MainActivity.this).
-                getAssigment("Bearer "+SessionPrefs.getToken(MainActivity.this));
-        call.enqueue(this);
+        Call<ArrayList<TaskResponse>> call = RetrofitInstance.getApiServices(MainActivity.this).
+                getAssigment("Bearer " + SessionPrefs.getToken(MainActivity.this));
+        call.enqueue(new Callback<ArrayList<TaskResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<TaskResponse>> call, Response<ArrayList<TaskResponse>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<TaskResponse> tasklist = response.body();
+                    mAdapter.setDataSet(tasklist);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<TaskResponse>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
-    @Override
-    public void onResponse(Call<ArrayList<Task>> call, Response<ArrayList<Task>> response) {
-        showScreen();
 
-        }
-
-
-
-
-    @Override
-    public void onFailure(Call<ArrayList<Task>> call, Throwable t) {
-
-    }
-    private void showScreen() {
-        Intent intent = new Intent(MainActivity.this,WorkActivity.class);
-        startActivity(intent);
-    }
+    /** Method to generate List of notice using RecyclerView with custom adapter*/
 
     /** Method to generate List of notice using RecyclerView with custom adapter*/
 
@@ -87,6 +90,14 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
     }
 
 
+    @Override
+    public void onResponse(Call<ArrayList<TasksList>> call, Response<ArrayList<TasksList>> response) {
 
+    }
+
+    @Override
+    public void onFailure(Call<ArrayList<TasksList>> call, Throwable t) {
+
+    }
 }
 

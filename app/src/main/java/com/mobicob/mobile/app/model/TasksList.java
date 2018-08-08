@@ -7,13 +7,14 @@ import java.util.ArrayList;
 public class TasksList {
 
         @SerializedName("tasks")
-        private ArrayList<Task> taskList;
+        private ArrayList<TaskResponse> tasks;
 
-        public ArrayList<Task> getTaskArrayList() {
-            return taskList;
-        }
 
-        public void setTaskArrayList(ArrayList<Task> taskArrayList) {
-            this.taskList = taskArrayList;
-        }
+    public ArrayList<TaskResponse> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<TaskResponse> tasks) {
+        this.tasks = tasks;
+    }
 }

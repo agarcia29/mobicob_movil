@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.model.Client;
+import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.model.TaskResponse;
+import com.mobicob.mobile.app.model.TasksList;
+import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;
 
 import java.util.ArrayList;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsViewHolder> {
 
-    private ArrayList<Client> mDataSet;
+    private ArrayList<TaskResponse> mDataSet;
 
-    public TasksAdapter(ArrayList<Client> mDataSet) {
+    public TasksAdapter(ArrayList<TaskResponse> mDataSet) {
         this.mDataSet = mDataSet;
     }
 
@@ -23,7 +26,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
         mDataSet = new ArrayList<>();
     }
 
-    public void setDataSet(ArrayList<Client> dataSet){
+    public void setDataSet(ArrayList<TaskResponse> dataSet){
         mDataSet = dataSet;
         notifyDataSetChanged();
     }
@@ -37,12 +40,12 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
     @Override
     public void onBindViewHolder(AssignmentsViewHolder holder, int position) {
 
-        holder.txtAssignmentNic.setText(mDataSet.get(position).getNic());
-        holder.txtAssignmentAddress.setText(mDataSet.get(position).getAddress());
-        holder.txtAssignmentNeighborhood.setText(mDataSet.get(position).getNeighborhood());
-        holder.txtAssignmentMunicipality.setText(mDataSet.get(position).getMunicipality());
-        holder.txtAssignmentCorregimiento.setText(mDataSet.get(position).getCorregimiento());
-        holder.txtAssignmentDepartment.setText(mDataSet.get(position).getDepartament());
+        holder.txtAssignmentNic.setText(mDataSet.get(position).getClient().getNic());
+        holder.txtAssignmentAddress.setText(mDataSet.get(position).getClient().getAddress());
+        holder.txtAssignmentNeighborhood.setText(mDataSet.get(position).getClient().getNeighborhood());
+        holder.txtAssignmentMunicipality.setText(mDataSet.get(position).getClient().getMunicipality());
+        holder.txtAssignmentCorregimiento.setText(mDataSet.get(position).getClient().getCorregimiento());
+        holder.txtAssignmentDepartment.setText(mDataSet.get(position).getClient().getDepartament());
 
     }
 

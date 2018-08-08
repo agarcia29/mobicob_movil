@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Task {
+    private int id;
     private String validity;
     private Date createdAt;
     private int campaignId;
@@ -237,5 +238,13 @@ public class Task {
 
     public void setLongitude(int longitude) {
         this.longitude = longitude;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

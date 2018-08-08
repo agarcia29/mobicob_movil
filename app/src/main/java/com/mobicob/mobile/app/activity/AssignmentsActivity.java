@@ -52,13 +52,7 @@ public class AssignmentsActivity extends Activity {
             }
         });
     }
-    private void generatePendingClient(ArrayList<Client> pendingClientArrayList) {
-        mRecyclerView = findViewById(R.id.recyclerViewAssignments);
-        mAdapter = new TasksAdapter(pendingClientArrayList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AssignmentsActivity.this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-    }
+
     }
 
     // ...
