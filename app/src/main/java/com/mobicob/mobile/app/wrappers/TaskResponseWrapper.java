@@ -1,26 +1,22 @@
 package com.mobicob.mobile.app.wrappers;
 
-import com.mobicob.mobile.app.model.Client;
-import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.model.Task;
-import com.mobicob.mobile.app.model.TaskResponse;
-import com.mobicob.mobile.app.model.TasksList;
+import com.mobicob.mobile.app.model.TasksClient;
 
 public class TaskResponseWrapper
 {
-    private TasksList data;
+    private TasksClient data;
 
 
     public TaskResponseWrapper() {
-        setData(new TasksList());
+        setData(new TasksClient());
     }
 
 
-    public TasksList getData() {
+    public TasksClient getData() {
         return data;
     }
 
-    public void setData(TasksList data) {
+    public void setData(TasksClient data) {
         this.data = data;
     }
 }

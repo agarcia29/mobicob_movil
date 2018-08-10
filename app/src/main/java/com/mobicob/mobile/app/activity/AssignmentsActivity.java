@@ -9,8 +9,7 @@ import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.adapters.TasksAdapter;
-import com.mobicob.mobile.app.network.RetrofitInstance;
-import com.mobicob.mobile.app.model.Client;
+import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
 import com.mobicob.mobile.app.model.PendingClient;
 
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class AssignmentsActivity extends Activity {
         setContentView(R.layout.activity_tasks);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
+       /** mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
         mRecyclerView.setHasFixedSize(true);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -56,4 +55,6 @@ public class AssignmentsActivity extends Activity {
     }
 
     // ...
-
+        }*/
+    }
+}

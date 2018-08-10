@@ -1,6 +1,5 @@
 package com.mobicob.mobile.app.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +8,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.adapters.TasksAdapter;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
-import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TaskResponse;
-import com.mobicob.mobile.app.model.TasksList;
-import com.mobicob.mobile.app.network.RetrofitInstance;
-import com.mobicob.mobile.app.model.Task;
-import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;
+import com.mobicob.mobile.app.model.TasksClient;
+import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
 
 import java.util.ArrayList;
 
@@ -25,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<ArrayList<TasksList>> {
+public class MainActivity extends AppCompatActivity implements Callback<ArrayList<TasksClient>> {
     private RecyclerView mRecyclerView;
     private TasksAdapter mAdapter;
     @Override
@@ -42,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
 
         mAdapter = new TasksAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        Call<ArrayList<TaskResponse>> call = RetrofitInstance.getApiServices(MainActivity.this).
+        Gson taskClient = RetrofitInstance.gsonDeserealizerBuilderTaskClient();
+        Call<ArrayList<TaskResponse>> call = RetrofitInstance.getApiServices(MainActivity.this, taskClient).
                 getAssigment("Bearer " + SessionPrefs.getToken(MainActivity.this));
         call.enqueue(new Callback<ArrayList<TaskResponse>>() {
             @Override
@@ -91,12 +89,12 @@ public class MainActivity extends AppCompatActivity implements Callback<ArrayLis
 
 
     @Override
-    public void onResponse(Call<ArrayList<TasksList>> call, Response<ArrayList<TasksList>> response) {
+    public void onResponse(Call<ArrayList<TasksClient>> call, Response<ArrayList<TasksClient>> response) {
 
     }
 
     @Override
-    public void onFailure(Call<ArrayList<TasksList>> call, Throwable t) {
+    public void onFailure(Call<ArrayList<TasksClient>> call, Throwable t) {
 
     }
 }

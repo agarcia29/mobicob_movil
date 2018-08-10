@@ -1,22 +1,22 @@
 package com.mobicob.mobile.app.wrappers;
 
-import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.LoginClient;
 
 public class LoginResponseWrapper {
-    private LoginResponse data;
+    private LoginClient data;
 
     public LoginResponseWrapper(String email, String jwt_token) {
-        setData(new LoginResponse());
+        setData(new LoginClient());
         getData().setEmail(email);
         getData().setJwt_token(jwt_token);
     }
 
 
-    public LoginResponse getData() {
+    public LoginClient getData() {
         return data;
     }
 
-    public void setData(LoginResponse data) {
+    public void setData(LoginClient data) {
         this.data = data;
     }
 }

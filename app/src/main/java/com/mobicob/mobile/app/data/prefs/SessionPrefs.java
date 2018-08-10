@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.mobicob.mobile.app.activity.LoginActivity;
-import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.LoginClient;
 
 public class SessionPrefs {
 
@@ -39,12 +39,12 @@ public class SessionPrefs {
         return mIsLoggedIn;
     }
 
-    public void saveAuthData(LoginResponse loginResponse) {
-        if (loginResponse != null) {
+    public void saveAuthData(LoginClient loginClient) {
+        if (loginClient != null) {
             SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putInt(PREF_user_ID, loginResponse.getId());
-            editor.putString(PREF_user_EMAIL, loginResponse.getEmail());
-            editor.putString(PREF_user_TOKEN, loginResponse.getJwt_token());
+            editor.putString(PREF_user_ID, loginClient.getId());
+            editor.putString(PREF_user_EMAIL, loginClient.getEmail());
+            editor.putString(PREF_user_TOKEN, loginClient.getJwt_token());
             editor.apply();
 
             mIsLoggedIn = true;
