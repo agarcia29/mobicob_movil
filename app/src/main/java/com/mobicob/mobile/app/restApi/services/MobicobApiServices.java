@@ -1,6 +1,7 @@
 package com.mobicob.mobile.app.restApi.services;
 
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.wrappers.LoginRequestWrapper;
 import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;

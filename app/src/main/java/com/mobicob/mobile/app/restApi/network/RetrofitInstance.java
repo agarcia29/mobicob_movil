@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.restApi.deserializers.LoginDeserializer;
 import com.mobicob.mobile.app.restApi.deserializers.TasksDeserializer;
@@ -30,7 +31,6 @@ public class RetrofitInstance {
 
         String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
         GsonConverterFactory loginFactory;
-        GsonConverterFactory tasksFactory;
 
         loginFactory = GsonConverterFactory.create(buildLoginGson());
 
@@ -53,7 +53,6 @@ public class RetrofitInstance {
         httpClient.addInterceptor(logging);
 
         String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
-        GsonConverterFactory loginFactory;
         GsonConverterFactory tasksFactory;
 
         tasksFactory = GsonConverterFactory.create(buildTasksGson());

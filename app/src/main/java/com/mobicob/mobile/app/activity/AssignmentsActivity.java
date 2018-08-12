@@ -11,9 +11,12 @@ import android.widget.Toast;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.adapters.ClientAdapter;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
+import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
 import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,7 +58,7 @@ public class AssignmentsActivity extends Activity {
             mRecyclerView.setAdapter(mAdapter);
 
             //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesLogin(AssignmentsActivity.this);
+            MobicobApiServices api = RetrofitInstance.getApiServicesTask(AssignmentsActivity.this);
             Call<TasksResponse> call = api.tasks(SessionPrefs.getToken(AssignmentsActivity.this));
             call.enqueue(new Callback<TasksResponse>() {
                 @Override

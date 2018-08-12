@@ -4,15 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Task implements Serializable {
+public class Task extends ArrayList<Task> implements Serializable {
     private int id;
     private int period;
     private String validity;
     private String plan;
     private int userId;
     private Date dueDate;
+    private Date createdAt;
+    private Date updateAt;
     private Time estimatedTime;
     private Campaign campaign;
     private Client client;
@@ -97,5 +100,21 @@ public class Task implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 }
