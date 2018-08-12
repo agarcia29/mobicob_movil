@@ -1,11 +1,12 @@
 package com.mobicob.mobile.app.restApi.network;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mobicob.mobile.app.model.TaskResponse;
-import com.mobicob.mobile.app.restApi.deserializers.TaskDeserializer;
+import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.restApi.deserializers.LoginDeserializer;
 import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
 
 import okhttp3.OkHttpClient;
@@ -25,11 +26,18 @@ public class RetrofitInstance {
         httpClient.addInterceptor(logging);
 
         String baseUrl = "http://192.168.1.14:3000/v1/";
+        GsonConverterFactory factory;
+        if(gson!=null) {
+            factory = GsonConverterFactory.create(gson);
+        }
+        else{
+            factory = GsonConverterFactory.create();
+        }
 
         if (API_SERVICES == null){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .addConverterFactory(factory)
                     .client(httpClient.build())
                     .build();
             API_SERVICES = retrofit.create(MobicobApiServices.class);
@@ -37,11 +45,28 @@ public class RetrofitInstance {
         return API_SERVICES;
     }
 
-    public static Gson gsonDeserealizerBuilderTaskClient(){
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(TaskResponse.class, new TaskDeserializer());
-
-        return gsonBuilder.create();
+ /*   public static Gson buildTasksGson(){
+        try {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(TasksResponse.class, new TasksDeserializer());
+            return gsonBuilder.create();
+        }
+        catch(Exception e){
+            Log.e("MOBICOB", e.getMessage(), e);
+        }
+        return null;
+    }
+*/
+    public static Gson buildLoginGson(){
+        try {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(LoginResponse.class, new LoginDeserializer());
+            return gsonBuilder.create();
+        }
+        catch(Exception e){
+            Log.e("MOBICOB", e.getMessage(), e);
+        }
+        return null;
     }
 }
 

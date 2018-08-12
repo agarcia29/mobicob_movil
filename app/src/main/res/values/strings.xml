@@ -1,45 +1,81 @@
 <resources>
     <string name="app_name">Mobicob</string>
-    <string name="text_accounts">All Counts</string>
-    <string name="hint_user">Username</string>
-    <string name="hint_name">Name</string>
-    <string name="hint_pass">Password</string>
-    <string name="hint_num_campaña">No. Campaign</string>
-    <string name="hint_fecha">Deadline</string>
+    <string name="hint_user">Nombre de usuario</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_pass">Contraseña</string>
+
+    //Cliente
+    <string name="hint_num_campaña">No. Campaña</string>
+    <string name="hint_fecha">F. Entrega</string>
     <string name="hint_unicom">Unicom</string>
     <string name="hint_nic">Nic</string>
     <string name="hint_nis_rad">NisRad</string>
-    <string name="hint_department">Departament</string>
-    <string name="text_login">Login</string>
-    <string name="error_message_user">invalid user</string>
-    <string name="error_message_pass">Required field</string>
-    <string name="error_valid_user_pass">Incorrect user or password</string>
-    <string name="action_settings">Setting</string>
-    <string name="text_hello">Hi,</string>
+    <string name="hint_department">Departamento</string>
+    <string name="hint_municipality">Municipio</string>
+    <string name="hint_corregimiento">Corregimiento</string>
+    <string name="hint_neiborhood">Barrio</string>
+    <string name="hint_addres">Direccion</string>
+    <string name="hint_tipo_via">Tipo via</string>
+    <string name="hint_nombre_calle">Nombre calle</string>
+    <string name="hint_duplicador">Duplicador</string>
+    <string name="hint_nro">Nro</string>
+    <string name="hint_cgv">Cgv</string>
+    <string name="hint_dir_ref">Direccion Ref.</string>
+    <string name="hint_cliente">Cliente</string>
+    <string name="hint_cedula">Cedula</string>
+    <string name="hint_telefono">Telefono</string>
+    <string name="hint_tarifa">Tarifa</string>
+    <string name="hint_estado">Estado</string>
+    <string name="hint_ruta">Ruta</string>
+    <string name="hint_itin_lectura">Itin. Lectura</string>
+    <string name="hint_aol">AOL Finca</string>
+    <string name="hint_medidor">Medidor</string>
+    <string name="hint_apartado">T. Apartado</string>
+    <string name="hint_marca_med">Marca Medidor</string>
+    <string name="hint_deuda_energia">Deuda Energia</string>
+    <string name="hint_deuda_irreg">Deuda Irreg.</string>
+    <string name="hint_deuda_terceros">Deuda Terceros</string>
+    <string name="hint_deuda_finc">Deuda Financ.</string>
+    <string name="hint_fact_vendidas">Fact.Vendidas</string>
+    <string name="hint_fact_acordadas">Fact. Acordadas</string>
+    <string name="hint_pago_datafono">Pago Datafono</string>
+    <string name="hint_periodo">Periodo</string>
+    <string name="hint_plan">Plan</string>
+    <string name="hint_contratista">Contratista</string>
+    <string name="hint_delegacion">Delegacion</string>
+
+
+    <string name="text_login">Ingresar</string>
+    <string name="error_message_user">Usuario invalido</string>
+    <string name="error_message_pass">Campo requerido</string>
+    <string name="error_valid_user_pass">Usuario o contraseña incorrecto</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="text_hello">Hola,</string>
     <string name="text_title">Mobicob</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Name</string>
+    <string name="nav_header_title">Nombre</string>
     <string name="codigo">0000</string>
 
-    <string name="work">Day\'s work</string>
-    <string name="home1">Assigned clients</string>
-    <string name="home2">Pending clients</string>
-    <string name="home3">Reported management</string>
+    <string name="work">Trabajo pendiente</string>
+    <string name="clientInformation">Informacion de cliente</string>
+    <string name="home1">Clientes asignados</string>
+    <string name="home2">Clientes pendientes</string>
+    <string name="home3">Clientes con gestion reportada</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="error_server">Server Error</string>
-    <string name="error_network">No connection network</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
+    <string name="prompt_email">Correo electronico</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Ingresar</string>
+    <string name="action_sign_in_short">Ingresar</string>
+    <string name="error_invalid_email">Este correo es invalido</string>
+    <string name="error_invalid_password">Contraseña demasiado corta</string>
+    <string name="error_incorrect_password">Contraseña incorrecta</string>
+    <string name="error_field_required">Campo requerido</string>
+    <string name="error_server">Error de servidor</string>
+    <string name="error_network">Sin conexion a internet</string>
+    <string name="permission_rationale">"
+Los permisos de contactos son necesarios para proporcionar autocompletado de correos."
     </string>
 </resources>

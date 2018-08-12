@@ -1,9 +1,10 @@
 package com.mobicob.mobile.app.restApi.services;
 
-import com.mobicob.mobile.app.model.TaskResponse;
-import com.mobicob.mobile.app.wrappers.LoginResponseWrapper;
+import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.wrappers.LoginRequestWrapper;
 import com.mobicob.mobile.app.model.PendingClient;
+import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;
 
 import java.util.ArrayList;
 
@@ -18,12 +19,12 @@ public interface MobicobApiServices {
 
 
     @GET("tasks")
-    Call<ArrayList<TaskResponse>> getAssigment(@Header("Authorization") String token);
+    Call<TaskResponseWrapper> tasks(@Header("Authorization") String token);
 
     @GET("pendingClients")
     Call<ArrayList<PendingClient>> getPendClient();
 
     @POST("sign_in")
-    Call<LoginResponseWrapper> login(@Body LoginRequestWrapper loginRequestWrapper);
+    Call<LoginResponse> login(@Body LoginRequestWrapper loginRequestWrapper);
 
 }

@@ -34,7 +34,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.wrappers.LoginResponseWrapper;
+import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
 import com.mobicob.mobile.app.wrappers.LoginRequestWrapper;
 import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
@@ -225,11 +226,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Gson gsonLogin = RetrofitInstance.gsonDeserealizerBuilderTaskClient();
-            Call<LoginResponseWrapper> loginCall = RetrofitInstance.getApiServices(LoginActivity.this, gsonLogin).login(new LoginRequestWrapper(email, password));
-            loginCall.enqueue(new Callback<LoginResponseWrapper>() {
+            Gson gsonLogin = RetrofitInstance.buildLoginGson();
+            MobicobApiServices api = RetrofitInstance.getApiServices(LoginActivity.this, gsonLogin);
+            Call<LoginResponse> loginCall = api.login(new LoginRequestWrapper(email, password));
+            loginCall.enqueue(new Callback<LoginResponse>() {
                 @Override
-                public void onResponse(Call<LoginResponseWrapper> call, Response<LoginResponseWrapper> response) {
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     // Mostrar progreso
                     showProgress(false);
                     // Procesar errores
@@ -250,13 +252,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // Guardar afiliado en preferencias
 
                     }else{
-                        SessionPrefs.get(LoginActivity.this).saveAuthData(response.body().getData());
+                        SessionPrefs.get(LoginActivity.this).saveAuthData(response.body());
                         showMainScreen();
                     }
                 }
 
                     @Override
-                    public void onFailure (Call<LoginResponseWrapper> call, Throwable t) {
+                    public void onFailure (Call<LoginResponse> call, Throwable t) {
+                        Log.e("MIGUEL", t.getMessage(), t);
                         showProgress(false);
                         showLoginError(t.getMessage());
                     }

@@ -1,16 +1,31 @@
 package com.mobicob.mobile.app.model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class LoginResponse {
-    @SerializedName("data")
-    private LoginClient client;
+        private int id;
+        private String email;
+        private String jwt_token;
 
-    public LoginClient getClient() {
-        return client;
-    }
+        public int getId() {
+                return id;
+        }
 
-    public void setClient(LoginClient client) {
-        this.client = client;
-    }
+        public void setId(int id) {
+                this.id = id;
+        }
+
+        public String getEmail() {
+                return email;
+        }
+
+        public void setEmail(String email) {
+                this.email = email;
+        }
+
+        public String getJwt_token() {
+                return jwt_token;
+        }
+
+        public void setJwt_token(String jwt_token) {
+                this.jwt_token = jwt_token;
+        }
 }
