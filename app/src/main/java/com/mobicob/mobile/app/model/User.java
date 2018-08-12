@@ -10,14 +10,14 @@ public class User {
     private String lastname;
     private Date creation;
     private int id_number;
-    private int contractor_id;
-    private int role_id;
+    private Contractor contractor_id;
+    private Role role_id;
     private String phone;
     private String address;
     private boolean active;
     private int latitude;
     private int longitude;
-    private int delegation_id;
+    private Delegation delegation_id;
     private String position;
     private String token;
 
@@ -77,19 +77,19 @@ public class User {
         this.id_number = id_number;
     }
 
-    public int getContractor_id() {
+    public Contractor getContractor_id() {
         return contractor_id;
     }
 
-    public void setContractor_id(int contractor_id) {
+    public void setContractor_id(Contractor contractor_id) {
         this.contractor_id = contractor_id;
     }
 
-    public int getRole_id() {
+    public Role getRole_id() {
         return role_id;
     }
 
-    public void setRole_id(int role_id) {
+    public void setRole_id(Role role_id) {
         this.role_id = role_id;
     }
 
@@ -133,11 +133,11 @@ public class User {
         this.longitude = longitude;
     }
 
-    public int getDelegation_id() {
+    public Delegation getDelegation_id() {
         return delegation_id;
     }
 
-    public void setDelegation_id(int delegation_id) {
+    public void setDelegation_id(Delegation delegation_id) {
         this.delegation_id = delegation_id;
     }
 

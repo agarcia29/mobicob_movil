@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Task implements Serializable {
+    private int id;
     private int period;
     private String validity;
     private String plan;
@@ -15,6 +16,7 @@ public class Task implements Serializable {
     private Time estimatedTime;
     private Campaign campaign;
     private Client client;
+    private User user;
 
 
     public int getPeriod() {
@@ -24,9 +26,6 @@ public class Task implements Serializable {
     public void setPeriod(int period) {
         this.period = period;
     }
-
-
-
 
     public String getValidity() {
         return validity;
@@ -82,5 +81,21 @@ public class Task implements Serializable {
 
     public void setCampaign(Campaign campaign) {
         this.campaign = campaign;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

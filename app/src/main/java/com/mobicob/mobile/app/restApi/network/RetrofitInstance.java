@@ -6,7 +6,9 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.restApi.deserializers.LoginDeserializer;
+import com.mobicob.mobile.app.restApi.deserializers.TasksDeserializer;
 import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
 
 import okhttp3.OkHttpClient;
@@ -16,36 +18,57 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitInstance {
 
-    private static MobicobApiServices API_SERVICES;
+    private static MobicobApiServices API_SERVICES_LOGIN;
+    private static MobicobApiServices API_SERVICES_TASK;
 
-    public static MobicobApiServices getApiServices(final Context context, Gson gson){
+    public static MobicobApiServices getApiServicesLogin(final Context context){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        String baseUrl = "http://192.168.1.14:3000/v1/";
-        GsonConverterFactory factory;
-        if(gson!=null) {
-            factory = GsonConverterFactory.create(gson);
-        }
-        else{
-            factory = GsonConverterFactory.create();
-        }
+        String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
+        GsonConverterFactory loginFactory;
+        GsonConverterFactory tasksFactory;
 
-        if (API_SERVICES == null){
+        loginFactory = GsonConverterFactory.create(buildLoginGson());
+
+        if (API_SERVICES_LOGIN == null){
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .addConverterFactory(factory)
+                    .addConverterFactory(loginFactory)
                     .client(httpClient.build())
                     .build();
-            API_SERVICES = retrofit.create(MobicobApiServices.class);
+            API_SERVICES_LOGIN = retrofit.create(MobicobApiServices.class);
         }
-        return API_SERVICES;
+        return API_SERVICES_LOGIN;
     }
 
- /*   public static Gson buildTasksGson(){
+    public static MobicobApiServices getApiServicesTask(final Context context){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
+        GsonConverterFactory loginFactory;
+        GsonConverterFactory tasksFactory;
+
+        tasksFactory = GsonConverterFactory.create(buildTasksGson());
+
+        if (API_SERVICES_TASK == null){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(tasksFactory)
+                    .client(httpClient.build())
+                    .build();
+            API_SERVICES_TASK = retrofit.create(MobicobApiServices.class);
+        }
+        return API_SERVICES_TASK;
+    }
+    public static Gson buildTasksGson(){
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(TasksResponse.class, new TasksDeserializer());
@@ -56,7 +79,7 @@ public class RetrofitInstance {
         }
         return null;
     }
-*/
+
     public static Gson buildLoginGson(){
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();

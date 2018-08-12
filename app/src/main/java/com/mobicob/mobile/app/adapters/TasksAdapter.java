@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.activity.AssignmentsActivity;
 import com.mobicob.mobile.app.activity.MainActivity;
+import com.mobicob.mobile.app.model.Client;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 
@@ -45,6 +46,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
 
     @Override
     public void onBindViewHolder(AssignmentsViewHolder holder, int position) {
+        final Task task = mDataSet.get(position);
 
         holder.txtAssignmentNic.setText(mDataSet.get(position).getClient().getNic()+"");
         holder.txtAssignmentAddress.setText(mDataSet.get(position).getClient().getAddress()+"");
@@ -59,6 +61,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AssignmentsActivity.class);
+                intent.putExtra("task_id",task.getId());
                 context.startActivity(intent);
             }
         });

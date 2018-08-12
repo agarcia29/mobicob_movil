@@ -13,7 +13,7 @@
     <string name="hint_department">Departamento</string>
     <string name="hint_municipality">Municipio</string>
     <string name="hint_corregimiento">Corregimiento</string>
-    <string name="hint_neiborhood">Barrio</string>
+    <string name="hint_neighborhood">Barrio</string>
     <string name="hint_addres">Direccion</string>
     <string name="hint_tipo_via">Tipo via</string>
     <string name="hint_nombre_calle">Nombre calle</string>
@@ -36,7 +36,7 @@
     <string name="hint_deuda_irreg">Deuda Irreg.</string>
     <string name="hint_deuda_terceros">Deuda Terceros</string>
     <string name="hint_deuda_finc">Deuda Financ.</string>
-    <string name="hint_fact_vendidas">Fact.Vendidas</string>
+    <string name="hint_fact_vencidas">Fact.Vencidas</string>
     <string name="hint_fact_acordadas">Fact. Acordadas</string>
     <string name="hint_pago_datafono">Pago Datafono</string>
     <string name="hint_periodo">Periodo</string>

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.adapters.TasksAdapter;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
@@ -24,7 +23,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements Callback<TasksResponse> {
     private RecyclerView mRecyclerView;
-    private TasksAdapter mAdapter;
+    private TasksResponse mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,19 +41,19 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mRecyclerView.setAdapter(mAdapter);
 
           //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
-            MobicobApiServices api = RetrofitInstance.getApiServices(MainActivity.this, null);
-            Call<TaskResponseWrapper> call = api.tasks(SessionPrefs.getToken(MainActivity.this));
-            call.enqueue(new Callback<TaskResponseWrapper>() {
+            MobicobApiServices api = RetrofitInstance.getApiServicesLogin(MainActivity.this);
+            Call<TasksResponse> call = api.tasks(SessionPrefs.getToken(MainActivity.this));
+            call.enqueue(new Callback<TasksResponse>() {
                 @Override
-                public void onResponse(Call<TaskResponseWrapper> call, Response<TaskResponseWrapper> response) {
+                public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {
                     if (response.isSuccessful()) {
-                        TasksResponse tasklist = response.body().getData();
+                        TasksResponse tasklist = response.body();
                         mAdapter.setDataSet(tasklist);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<TaskResponseWrapper> call, Throwable t) {
+                public void onFailure(Call<TasksResponse> call, Throwable t) {
                     Log.e("MOBICOB", t.getMessage(), t);
                     Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }

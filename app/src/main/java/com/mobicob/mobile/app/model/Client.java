@@ -1,10 +1,11 @@
 package com.mobicob.mobile.app.model;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 public class Client {
         private int id;
-        private int nic;
+        private long nic;
         private String unicom;
         private int delegation_id;
         private int nisRad;
@@ -38,11 +39,11 @@ public class Client {
         private Date createdAt;
         private Date updatedAt;
 
-    public int getNic() {
+    public long getNic() {
         return nic;
     }
 
-    public void setNic(int nic) {
+    public void setNic(long nic) {
         this.nic = nic;
     }
 

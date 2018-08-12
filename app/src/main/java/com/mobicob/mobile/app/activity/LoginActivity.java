@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
@@ -226,8 +225,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            Gson gsonLogin = RetrofitInstance.buildLoginGson();
-            MobicobApiServices api = RetrofitInstance.getApiServices(LoginActivity.this, gsonLogin);
+            //Gson gsonLogin = RetrofitInstance.buildLoginGson();
+            MobicobApiServices api = RetrofitInstance.getApiServicesLogin(LoginActivity.this);
             Call<LoginResponse> loginCall = api.login(new LoginRequestWrapper(email, password));
             loginCall.enqueue(new Callback<LoginResponse>() {
                 @Override
