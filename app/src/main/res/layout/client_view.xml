@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="4dp">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -696,27 +697,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="@string/hint_pago_datafono"
-                    android:textColor="@android:color/darker_gray" />
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/tvTaskDataphonePay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="#000" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:text="@string/hint_periodo"
                     android:textColor="@android:color/darker_gray" />
 
@@ -790,20 +770,24 @@
                     android:layout_weight="1"
                     android:textColor="#000" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
+
                 <android.support.v7.widget.AppCompatImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
                     android:src="@drawable/editar"/>
+
                 <android.support.v7.widget.AppCompatImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="30dp"
-                    android:src="@drawable/geoposicion"/>
+                    android:background="#fff"
+                    android:src="@drawable/geoposicion" />
             </LinearLayout>
 
 

@@ -1,23 +1,10 @@
 package com.mobicob.mobile.app.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 
-public class Task extends ArrayList<Task> implements Serializable {
+public class Result {
     private int id;
-    private String validity;
-    private Date createdAt;
-    private Campaign campaign;
-    private Client client;
-    private int period;
-    private String plan;
-    private int userId;
-    private Date dueDate;
-    private Time estimatedTime;
     private Date updateAt;
     private User user;
     private Date managementDate;
@@ -39,69 +26,12 @@ public class Task extends ArrayList<Task> implements Serializable {
     private int longitude;
     private Time usedTime;
 
-
-    public int getPeriod() {
-        return period;
+    public Date getUpdateAt() {
+        return updateAt;
     }
 
-    public void setPeriod(int period) {
-        this.period = period;
-    }
-
-    public String getValidity() {
-        return validity;
-    }
-
-    public void setValidity(String validity) {
-        this.validity = validity;
-    }
-
-    public String getPlan() {
-        return plan;
-    }
-
-    public void setPlan(String plan) {
-        this.plan = plan;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public Time getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public void setEstimatedTime(Time estimatedTime) {
-        this.estimatedTime = estimatedTime;
-    }
-
-       public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Campaign getCampaign() {
-        return campaign;
-    }
-
-    public void setCampaign(Campaign campaign) {
-        this.campaign = campaign;
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
     }
 
     public User getUser() {
@@ -110,30 +40,6 @@ public class Task extends ArrayList<Task> implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
     }
 
     public Date getManagementDate() {
@@ -278,5 +184,13 @@ public class Task extends ArrayList<Task> implements Serializable {
 
     public void setUsedTime(Time usedTime) {
         this.usedTime = usedTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
