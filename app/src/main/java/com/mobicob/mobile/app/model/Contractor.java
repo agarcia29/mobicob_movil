@@ -5,6 +5,12 @@ public class Contractor {
     private String code;
     private String name;
 
+    public Contractor(){}
+
+    public Contractor(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -3,23 +3,51 @@ package com.mobicob.mobile.app.model;
 import java.util.Date;
 
 public class User {
+
+    private int id;
     private String username;
     private String email;
     private String password;
     private String name;
     private String lastname;
     private Date creation;
-    private int id_number;
-    private Contractor contractor_id;
-    private Role role_id;
+    private int idNumber;
+    private Contractor contractorId;
+    private Role roleId;
     private String phone;
     private String address;
     private boolean active;
-    private int latitude;
-    private int longitude;
-    private Delegation delegation_id;
+    private String latitude;
+    private String longitude;
+    private Delegation delegationId;
     private String position;
     private String token;
+
+    public User(){
+
+    }
+
+    public User(int id, String username, String email, String name, String lastname, Date creation,
+                int idNumber, Contractor contractorId, Role roleId, String phone, String address,
+                boolean active, String latitude, String longitude, Delegation delegationId,
+                String position) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.name = name;
+        this.lastname = lastname;
+        this.creation = creation;
+        this.idNumber = idNumber;
+        this.contractorId = contractorId;
+        this.roleId = roleId;
+        this.phone = phone;
+        this.address = address;
+        this.active = active;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.delegationId = delegationId;
+        this.position = position;
+    }
 
     public String getUsername() {
         return username;
@@ -69,28 +97,28 @@ public class User {
         this.creation = creation;
     }
 
-    public int getId_number() {
-        return id_number;
+    public int getIdNumber() {
+        return idNumber;
     }
 
-    public void setId_number(int id_number) {
-        this.id_number = id_number;
+    public void setIdNumber(int idNumber) {
+        this.idNumber = idNumber;
     }
 
-    public Contractor getContractor_id() {
-        return contractor_id;
+    public Contractor getContractorId() {
+        return contractorId;
     }
 
-    public void setContractor_id(Contractor contractor_id) {
-        this.contractor_id = contractor_id;
+    public void setContractorId(Contractor contractorId) {
+        this.contractorId = contractorId;
     }
 
-    public Role getRole_id() {
-        return role_id;
+    public Role getRoleId() {
+        return roleId;
     }
 
-    public void setRole_id(Role role_id) {
-        this.role_id = role_id;
+    public void setRoleId(Role roleId) {
+        this.roleId = roleId;
     }
 
     public String getPhone() {
@@ -117,28 +145,28 @@ public class User {
         this.active = active;
     }
 
-    public int getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public int getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public Delegation getDelegation_id() {
-        return delegation_id;
+    public Delegation getDelegationId() {
+        return delegationId;
     }
 
-    public void setDelegation_id(Delegation delegation_id) {
-        this.delegation_id = delegation_id;
+    public void setDelegationId(Delegation delegationId) {
+        this.delegationId = delegationId;
     }
 
     public String getPosition() {
@@ -155,5 +183,14 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

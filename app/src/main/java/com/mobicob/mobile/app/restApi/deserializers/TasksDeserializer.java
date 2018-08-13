@@ -15,6 +15,7 @@ import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.restApi.JsonKeys;
+import com.mobicob.mobile.app.util.DateUtilities;
 
 import java.lang.reflect.Type;
 import java.text.DateFormat;
@@ -137,13 +138,8 @@ public class TasksDeserializer implements JsonDeserializer<TasksResponse> {
 
     private Date getAsDate(JsonElement element){
         if(element != null && (element.getClass() != JsonNull.class)){
-            try {
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm.ss.sssZ");
-                Date myDate = df.parse(element.getAsString());
-                return myDate;
-            } catch (ParseException e) {
-                Log.e("MOBICOB", e.getMessage(), e);
-            }
+            Date myDate = DateUtilities.stringToDate(element.getAsString());
+            return myDate;
         }
         return null;
     }

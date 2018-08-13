@@ -5,6 +5,12 @@ public class Role {
     private String code;
     private String name;
 
+    public Role(){}
+
+    public Role(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

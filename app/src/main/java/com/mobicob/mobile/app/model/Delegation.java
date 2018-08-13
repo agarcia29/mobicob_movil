@@ -5,6 +5,12 @@ public class Delegation {
     private String code;
     private String name;
 
+    public Delegation(){}
+
+    public Delegation(int id){
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.activity.AssignmentsActivity;
+import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.model.User;
@@ -21,7 +23,7 @@ import java.util.List;
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.AssignmentsViewHolder> {
 
     private List<Task> mDataSet;
-    private User user;
+    private LoginResponse loginResponse;
     private Context context;
 
     public ClientAdapter(TasksResponse mDataSet) {
@@ -30,7 +32,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.Assignment
 
     public ClientAdapter(Context context) {
         this.context = context;
-        user = new User();
+        loginResponse = new LoginResponse();
         mDataSet = new ArrayList<>();
     }
 
@@ -82,8 +84,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.Assignment
         holder.txtClientAgreedBill.setText(mDataSet.get(position).getClient().getAgreedBills()+"");
         holder.txtTaskPeriod.setText(mDataSet.get(position).getPeriod()+"");
         holder.txtTaskPlan.setText(mDataSet.get(position).getPlan()+"");
-        holder.txtUserContractor.setText(user.getContractor_id()+"");
-        holder.txtUserDelegation.setText(user.getDelegation_id()+"");
+        holder.txtUserContractor.setText(loginResponse.getContractorId()+"");
+        holder.txtUserDelegation.setText(loginResponse.getDelegationId()+"");
 
         //Bind click
 

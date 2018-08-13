@@ -15,6 +15,7 @@ import com.mobicob.mobile.app.activity.MainActivity;
 import com.mobicob.mobile.app.model.Client;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
+import com.mobicob.mobile.app.restApi.JsonKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AssignmentsActivity.class);
-                intent.putExtra("task_id",task.getId());
+                intent.putExtra(JsonKeys.TASK_CAMPAIGN_NUMBER,task.getCampaign().getNumber());
                 context.startActivity(intent);
             }
         });
