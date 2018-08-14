@@ -78,4 +78,30 @@
     <string name="permission_rationale">"
 Los permisos de contactos son necesarios para proporcionar autocompletado de correos."
     </string>
+
+    //Spinners
+    <string-array name="managementType">
+        <item>Correo ELectronico</item>
+        <item>No Gestionado</item>
+        <item>Actualizar datos</item>
+        <item>Depuracion</item>
+        <item>Demandado</item>
+        <item>Suspension</item>
+    </string-array>
+    <string-array name="resultType">
+        <item>Avaluo</item>
+        <item>Positivo</item>
+        <item>Negativo</item>
+        <item>En curso</item>
+        <item>Cliente Cancelo</item>
+        <item>Gestion no procede</item>
+    </string-array>
+    <string-array name="anomalyType">
+        <item>Ninguna</item>
+        <item>Dirreccion Errada</item>
+        <item>Sin redes</item>
+        <item>En reclamo</item>
+        <item>Pago realizado</item>
+        <item>Ninguna</item>
+    </string-array>
 </resources>

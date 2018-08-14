@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AssignmentsActivity extends Activity {
+public class AssignmentsActivity extends Activity implements View.OnClickListener{
     private RecyclerView mRecyclerView;
     private ClientAdapter mAdapter;
 
@@ -39,6 +42,8 @@ public class AssignmentsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
+       // LinearLayout editGestionButton = (LinearLayout) findViewById(R.id.editGestionButton);
+       // editGestionButton.setOnClickListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
         mRecyclerView.setHasFixedSize(true);
 
@@ -86,10 +91,17 @@ public class AssignmentsActivity extends Activity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, MainActivity.class );
+        startActivity(intent);
+        }
+
+    }
+
      /*   Bundle extra = getIntent().getExtras();
         int numberCampaign = extra.getInt(KEY_EXTRA_NUMBER_CAMPAIGN);
 
         CardView cardView = (CardView) findViewById(R.id.cardViewTask);
         TextView txtNumberCampaign = (TextView) findViewById(R.id.tvClientNoCampaign);
         txtNumberCampaign.setText(String.valueOf(numberCampaign));*/
-    }
