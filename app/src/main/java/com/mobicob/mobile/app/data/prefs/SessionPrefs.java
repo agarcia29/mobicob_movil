@@ -35,6 +35,7 @@ public class SessionPrefs {
     private boolean mIsLoggedIn;
 
     public boolean isLoggedIn(){
+
         return mIsLoggedIn;
     }
 
@@ -45,9 +46,15 @@ public class SessionPrefs {
             editor.putString(PREF_user_EMAIL, loginClient.getEmail());
             editor.putString(PREF_user_TOKEN, loginClient.getJwt_token());
             editor.apply();
-
-            mIsLoggedIn = true;
         }
+    }
+
+    public void sessionDestroy() {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString(PREF_user_ID, null);
+            editor.putString(PREF_user_EMAIL, null);
+            editor.putString(PREF_user_TOKEN, null);
+            editor.apply();
     }
 
     public static String getToken(Context context){

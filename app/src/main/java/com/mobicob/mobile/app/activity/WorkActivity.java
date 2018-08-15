@@ -3,6 +3,8 @@ package com.mobicob.mobile.app.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -10,16 +12,16 @@ import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.data.prefs.SessionPrefs;
 
 public class WorkActivity extends AppCompatActivity implements View.OnClickListener {
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        // Redirección al Login
         if (!SessionPrefs.get(this).isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.content_main);
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.assignedClientMenu);
@@ -44,6 +46,30 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.reportedManageMenu:
                 break;
+        }
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_logOut:
+                SessionPrefs.get(this).sessionDestroy();
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
     }

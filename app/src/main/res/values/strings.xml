@@ -3,6 +3,7 @@
     <string name="hint_user">Nombre de usuario</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_pass">Contraseña</string>
+    <string name="menu_LogOut">Cerrar session</string>
 
     //Cliente
     <string name="hint_num_campaña">No. Campaña</string>
