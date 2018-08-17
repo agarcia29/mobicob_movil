@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.helpers;
+package com.mobicob.mobile.app.ui.helpers;
 
 import android.app.Activity;
 import android.content.Context;

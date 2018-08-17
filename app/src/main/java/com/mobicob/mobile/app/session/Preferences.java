@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.data.prefs;
+package com.mobicob.mobile.app.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,18 +6,18 @@ import android.text.TextUtils;
 
 import com.mobicob.mobile.app.model.LoginResponse;
 
-public class SessionPrefs {
+public class Preferences {
 
-    private static SessionPrefs INSTANCE;
+    private static Preferences INSTANCE;
 
-    public static SessionPrefs get(Context context) {
+    public static Preferences get(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = new SessionPrefs(context);
+            INSTANCE = new Preferences(context);
         }
         return INSTANCE;
     }
 
-    private SessionPrefs(Context context) {
+    private Preferences(Context context) {
         mPrefs = context.getApplicationContext()
                 .getSharedPreferences(PREF_user_ID, Context.MODE_PRIVATE);
 
@@ -59,7 +59,7 @@ public class SessionPrefs {
 
     public static String getToken(Context context){
         String token = "Bearer ";
-        token = token.concat(SessionPrefs.get(context).mPrefs.getString(PREF_user_TOKEN, null));
+        token = token.concat(Preferences.get(context).mPrefs.getString(PREF_user_TOKEN, null));
         return token;
     }
 }

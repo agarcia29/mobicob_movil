@@ -1,21 +1,19 @@
-package com.mobicob.mobile.app.adapters;
+package com.mobicob.mobile.app.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.activity.AssignmentsActivity;
+import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.model.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.restApi.deserializers;
+package com.mobicob.mobile.app.apiclient.deserializers;
 
 import android.util.Log;
 
@@ -11,16 +11,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mobicob.mobile.app.model.Campaign;
 import com.mobicob.mobile.app.model.Client;
-import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.restApi.JsonKeys;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
 import com.mobicob.mobile.app.util.DateUtilities;
 
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 

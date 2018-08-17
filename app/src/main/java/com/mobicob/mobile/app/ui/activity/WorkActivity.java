@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.activity;
+package com.mobicob.mobile.app.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.data.prefs.SessionPrefs;
+import com.mobicob.mobile.app.session.Preferences;
 
 public class WorkActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!SessionPrefs.get(this).isLoggedIn()) {
+        if (!Preferences.get(this).isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
@@ -50,21 +50,18 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_logOut:
-                SessionPrefs.get(this).sessionDestroy();
+                Preferences.get(this).sessionDestroy();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;

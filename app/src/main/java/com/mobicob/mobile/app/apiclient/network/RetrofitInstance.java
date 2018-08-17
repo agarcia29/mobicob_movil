@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.restApi.network;
+package com.mobicob.mobile.app.apiclient.network;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,11 +6,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.restApi.deserializers.LoginDeserializer;
-import com.mobicob.mobile.app.restApi.deserializers.TasksDeserializer;
-import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
+import com.mobicob.mobile.app.apiclient.deserializers.LoginDeserializer;
+import com.mobicob.mobile.app.apiclient.deserializers.TasksDeserializer;
+import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

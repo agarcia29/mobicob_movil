@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.restApi;
+package com.mobicob.mobile.app.apiclient;
 
 public final class JsonKeys {
 

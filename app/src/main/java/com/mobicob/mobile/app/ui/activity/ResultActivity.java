@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.activity;
+package com.mobicob.mobile.app.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

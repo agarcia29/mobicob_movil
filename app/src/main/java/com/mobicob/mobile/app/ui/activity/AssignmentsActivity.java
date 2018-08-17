@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.activity;
+package com.mobicob.mobile.app.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,15 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.adapters.ClientAdapter;
-import com.mobicob.mobile.app.data.prefs.SessionPrefs;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.ui.adapter.ClientAdapter;
+import com.mobicob.mobile.app.session.Preferences;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.restApi.JsonKeys;
-import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
-import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
-
-import java.util.ArrayList;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
+import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
+import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,7 +67,7 @@ public class AssignmentsActivity extends Activity implements View.OnClickListene
 
             //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
             MobicobApiServices api = RetrofitInstance.getApiServicesTask(AssignmentsActivity.this);
-            Call<TasksResponse> call = api.tasks(SessionPrefs.getToken(AssignmentsActivity.this));
+            Call<TasksResponse> call = api.tasks(Preferences.getToken(AssignmentsActivity.this));
             call.enqueue(new Callback<TasksResponse>() {
                 @Override
                 public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {
@@ -115,7 +112,7 @@ public class AssignmentsActivity extends Activity implements View.OnClickListene
         switch (item.getItemId()) {
             case R.id.action_logOut:
                 //metodoAdd()
-                SessionPrefs.get(this).sessionDestroy();
+                Preferences.get(this).sessionDestroy();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;

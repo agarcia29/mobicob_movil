@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.adapters;
+package com.mobicob.mobile.app.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.activity.AssignmentsActivity;
-import com.mobicob.mobile.app.activity.MainActivity;
-import com.mobicob.mobile.app.model.Client;
+import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.restApi.JsonKeys;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
 
 import java.util.ArrayList;
 import java.util.List;

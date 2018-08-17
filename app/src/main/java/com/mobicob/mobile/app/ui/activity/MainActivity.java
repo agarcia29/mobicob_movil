@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.activity;
+package com.mobicob.mobile.app.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,16 +11,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.adapters.TasksAdapter;
-import com.mobicob.mobile.app.data.prefs.SessionPrefs;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.ui.adapter.TasksAdapter;
+import com.mobicob.mobile.app.session.Preferences;
 import com.mobicob.mobile.app.model.TasksResponse;
-import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
-import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
-import com.mobicob.mobile.app.wrappers.TaskResponseWrapper;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
+import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
 
           //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
             MobicobApiServices api = RetrofitInstance.getApiServicesTask(MainActivity.this);
-            Call<TasksResponse> call = api.tasks(SessionPrefs.getToken(MainActivity.this));
+            Call<TasksResponse> call = api.tasks(Preferences.getToken(MainActivity.this));
             call.enqueue(new Callback<TasksResponse>() {
                 @Override
                 public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {

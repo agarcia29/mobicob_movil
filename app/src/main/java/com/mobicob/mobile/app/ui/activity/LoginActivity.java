@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.activity;
+package com.mobicob.mobile.app.ui.activity;
 
 
 
@@ -34,10 +34,10 @@ import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.restApi.services.MobicobApiServices;
-import com.mobicob.mobile.app.wrappers.LoginRequestWrapper;
-import com.mobicob.mobile.app.restApi.network.RetrofitInstance;
-import com.mobicob.mobile.app.data.prefs.SessionPrefs;
+import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
+import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
+import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
+import com.mobicob.mobile.app.session.Preferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -251,7 +251,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         // Guardar afiliado en preferencias
 
                     }else{
-                        SessionPrefs.get(LoginActivity.this).saveAuthData(response.body());
+                        Preferences.get(LoginActivity.this).saveAuthData(response.body());
                         showMainScreen();
                     }
                 }

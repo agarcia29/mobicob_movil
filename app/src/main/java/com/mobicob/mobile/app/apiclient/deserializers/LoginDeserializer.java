@@ -1,15 +1,14 @@
-package com.mobicob.mobile.app.restApi.deserializers;
+package com.mobicob.mobile.app.apiclient.deserializers;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.restApi.JsonKeys;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
 
 import java.lang.reflect.Type;
 

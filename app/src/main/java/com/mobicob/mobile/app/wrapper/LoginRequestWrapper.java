@@ -1,4 +1,4 @@
-package com.mobicob.mobile.app.wrappers;
+package com.mobicob.mobile.app.wrapper;
 
 import com.mobicob.mobile.app.model.User;
 

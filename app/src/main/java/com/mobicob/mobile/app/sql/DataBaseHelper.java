@@ -15,7 +15,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(FeedUsers.SQL_CREATE_USERS);
+        /*db.execSQL(FeedUsers.SQL_CREATE_USERS);
         db.execSQL(FeedCampaigns.SQL_CREATE_CAMPAINGS);
         db.execSQL(FeedTasks.SQL_CREATE_TASKS);
         db.execSQL(FeedClients.SQL_CREATE_CLIENTS);
@@ -24,7 +24,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(FeedMagementTypes.SQL_CREATE_MANAGEMENT_TYPES);
         db.execSQL(FeedResultTypes.SQL_CREATE_RESULT_TYPES);
         db.execSQL(FeedAnomalyTypes.SQL_CREATE_ANOMALY_TYPES);
-        db.execSQL(FeedRoles.SQL_CREATE_ROLES);
+        db.execSQL(FeedRoles.SQL_CREATE_ROLES);*/
     }
 
     @Override
