@@ -28,7 +28,7 @@ public class RetrofitInstance {
         OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
+        String baseUrl = "http://192.168.1.14:3000/v1/";
         GsonConverterFactory loginFactory;
 
         loginFactory = GsonConverterFactory.create(buildLoginGson());

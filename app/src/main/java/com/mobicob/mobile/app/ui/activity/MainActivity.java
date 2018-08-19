@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
         switch (item.getItemId()) {
             case R.id.action_logOut:
                 //metodoAdd()
-                SessionPrefs.get(this).sessionDestroy();
+                Preferences.get(this).sessionDestroy();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;

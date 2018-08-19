@@ -1,15 +1,19 @@
 package com.mobicob.mobile.app.db.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity
 public class Contractor {
+
+    @PrimaryKey
+    @NonNull
     private int id;
     private String code;
     private String name;
 
     public Contractor(){}
-
-    public Contractor(int id){
-        this.id = id;
-    }
 
     public int getId() {
         return id;

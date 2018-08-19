@@ -4,7 +4,7 @@ import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
-import com.mobicob.mobile.app.wrappers.ResultRequestWrapper;
+import com.mobicob.mobile.app.wrapper.ResultRequestWrapper;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

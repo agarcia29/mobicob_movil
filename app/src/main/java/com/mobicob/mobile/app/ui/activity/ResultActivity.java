@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.data.prefs.SessionPrefs;
+import com.mobicob.mobile.app.session.Preferences;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -30,7 +30,7 @@ public class ResultActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logOut:
                 //metodoAdd()
-                SessionPrefs.get(this).sessionDestroy();
+                Preferences.get(this).sessionDestroy();
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();
                 return true;

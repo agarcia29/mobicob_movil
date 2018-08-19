@@ -1,19 +1,13 @@
 package com.mobicob.mobile.app.db.entity;
 
-import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import java.util.Date;
-
 @Entity
 public class User {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    private int _id;
-
+    @PrimaryKey
     @NonNull
     private int id;
 
@@ -27,15 +21,13 @@ public class User {
 
     private String lastName;
 
-    private Date creation;
+    private String creation;
 
     private int idNumber;
 
-    @Embedded
-    private Contractor contractorId;
+    private int contractorId;
 
-    @Embedded
-    private Role roleId;
+    private int roleId;
 
     private String phone;
 
@@ -47,8 +39,7 @@ public class User {
 
     private String longitude;
 
-    @Embedded
-    private Delegation delegationId;
+    private int delegationId;
 
     private String position;
 
@@ -58,9 +49,9 @@ public class User {
 
     }
 
-    public User(int id, String username, String email, String name, String lastName, Date creation,
-                int idNumber, Contractor contractorId, Role roleId, String phone, String address,
-                boolean active, String latitude, String longitude, Delegation delegationId,
+    public User(int id, String username, String email, String name, String lastName, String creation,
+                int idNumber, int contractorId, int roleId, String phone, String address,
+                boolean active, String latitude, String longitude, int delegationId,
                 String position) {
         this.id = id;
         this.username = username;
@@ -78,14 +69,6 @@ public class User {
         this.longitude = longitude;
         this.delegationId = delegationId;
         this.position = position;
-    }
-
-    public int get_id() {
-        return _id;
-    }
-
-    public void set_id(int _id) {
-        this._id = _id;
     }
 
     public String getUsername() {
@@ -128,11 +111,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Date getCreation() {
+    public String getCreation() {
         return creation;
     }
 
-    public void setCreation(Date creation) {
+    public void setCreation(String creation) {
         this.creation = creation;
     }
 
@@ -144,19 +127,19 @@ public class User {
         this.idNumber = idNumber;
     }
 
-    public Contractor getContractorId() {
+    public int getContractorId() {
         return contractorId;
     }
 
-    public void setContractorId(Contractor contractorId) {
+    public void setContractorId(int contractorId) {
         this.contractorId = contractorId;
     }
 
-    public Role getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Role roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
@@ -200,11 +183,11 @@ public class User {
         this.longitude = longitude;
     }
 
-    public Delegation getDelegationId() {
+    public int getDelegationId() {
         return delegationId;
     }
 
-    public void setDelegationId(Delegation delegationId) {
+    public void setDelegationId(int delegationId) {
         this.delegationId = delegationId;
     }
 

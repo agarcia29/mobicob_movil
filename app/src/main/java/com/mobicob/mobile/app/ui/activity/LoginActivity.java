@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                     @Override
                     public void onFailure (Call<LoginResponse> call, Throwable t) {
-                        Log.e("MIGUEL", t.getMessage(), t);
+                        Log.e("MOBICOB", t.getMessage(), t);
                         showProgress(false);
                         showLoginError(t.getMessage());
                     }

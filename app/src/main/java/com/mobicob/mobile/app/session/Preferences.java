@@ -20,11 +20,7 @@ public class Preferences {
     private Preferences(Context context) {
         mPrefs = context.getApplicationContext()
                 .getSharedPreferences(PREF_user_ID, Context.MODE_PRIVATE);
-
-        mIsLoggedIn = !TextUtils.isEmpty(mPrefs.getString(PREF_user_TOKEN, null));
     }
-
-
 
     public static final String PREF_user_ID = "PREF_user_ID";
     public static final String PREF_user_EMAIL = "PREF_USER_EMAIL";
@@ -32,11 +28,9 @@ public class Preferences {
 
     private final SharedPreferences mPrefs;
 
-    private boolean mIsLoggedIn;
-
     public boolean isLoggedIn(){
 
-        return mIsLoggedIn;
+        return !TextUtils.isEmpty(mPrefs.getString(PREF_user_TOKEN, null));
     }
 
     public void saveAuthData(LoginResponse loginClient) {
