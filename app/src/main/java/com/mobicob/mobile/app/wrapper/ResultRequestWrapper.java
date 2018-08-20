@@ -2,9 +2,6 @@ package com.mobicob.mobile.app.wrapper;
 
 import com.mobicob.mobile.app.model.Result;
 import com.mobicob.mobile.app.model.Task;
-import com.mobicob.mobile.app.model.User;
-
-import java.util.Date;
 
 public class ResultRequestWrapper {
     private Task taskRequest;

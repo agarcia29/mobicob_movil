@@ -1,6 +1,7 @@
 package com.mobicob.mobile.app.db.entity;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -49,6 +50,7 @@ public class User {
 
     }
 
+    @Ignore
     public User(int id, String username, String email, String name, String lastName, String creation,
                 int idNumber, int contractorId, int roleId, String phone, String address,
                 boolean active, String latitude, String longitude, int delegationId,
