@@ -78,14 +78,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private UserViewModel mUserdViewModel;
+    private UserViewModel mUserViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mUserdViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -250,7 +250,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         User currentUser =new User();
                         currentUser.setEmail(response.body().getEmail());
                         currentUser.setId(response.body().getId());
-                        mUserdViewModel.insert(currentUser);
+                        mUserViewModel.insert(currentUser);
                         showMainScreen();
                     }else{
                         String error;

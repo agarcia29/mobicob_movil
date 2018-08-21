@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity
-public class Task extends ArrayList<Task> implements Serializable {
+public class Task implements Serializable {
 
     @PrimaryKey
     @NonNull
