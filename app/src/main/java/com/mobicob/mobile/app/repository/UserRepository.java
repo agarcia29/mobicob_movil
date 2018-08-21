@@ -40,6 +40,7 @@ public class UserRepository {
 
         @Override
         protected Void doInBackground(final User... params) {
+            mAsyncTaskDao.deleteAll();
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

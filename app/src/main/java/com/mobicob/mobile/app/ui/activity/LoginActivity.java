@@ -5,12 +5,15 @@ package com.mobicob.mobile.app.ui.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -33,11 +36,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
+import com.mobicob.mobile.app.db.entity.User;
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
+import com.mobicob.mobile.app.viewmodel.UserViewModel;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
 import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
 import com.mobicob.mobile.app.session.Preferences;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,10 +78,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private UserViewModel mUserdViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mUserdViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -231,10 +242,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             loginCall.enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    // Mostrar progreso
+
                     showProgress(false);
-                    // Procesar errores
-                    if (!response.isSuccessful()) {
+
+                    if (response.isSuccessful()) {
+                        Preferences.get(LoginActivity.this).saveAuthData(response.body());
+                        User currentUser =new User();
+                        currentUser.setEmail(response.body().getEmail());
+                        currentUser.setId(response.body().getId());
+                        mUserdViewModel.insert(currentUser);
+                        showMainScreen();
+                    }else{
                         String error;
                         if (response.errorBody()
                                 .contentType()
@@ -248,88 +266,80 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                             showLoginError(error);
                             return;
                         }
-                        // Guardar afiliado en preferencias
-
-                    }else{
-                        Preferences.get(LoginActivity.this).saveAuthData(response.body());
-                        showMainScreen();
                     }
                 }
 
-                    @Override
-                    public void onFailure (Call<LoginResponse> call, Throwable t) {
-                        Log.e("MOBICOB", t.getMessage(), t);
-                        showProgress(false);
-                        showLoginError(t.getMessage());
-                    }
+                @Override
+                public void onFailure (Call<LoginResponse> call, Throwable t) {
+                    Log.e("MOBICOB", t.getMessage(), t);
+                    showProgress(false);
+                    showLoginError(t.getMessage());
+                }
 
-        });
+            });
+        }
+
+        /**
+         * Represents an asynchronous login/registration task used to authenticate
+         * the user.
+         */
+        class UserLoginTask extends AsyncTask<Void, Void, Integer> {
+
+            private final String mEmail;
+            private final String mPassword;
+
+            UserLoginTask(String email, String password) {
+                mEmail = email;
+                mPassword = password;
+            }
+
+            @Override
+            protected Integer doInBackground(Void... params) {
+                // TODO: attempt authentication against a network service.
+                try {
+                    // Simulate network access.
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    return 4;
+                }
+
+                if (!mEmail.equals(DUMMY_USER_ID)) {
+                    return 2;
+                }
+
+                if (!mPassword.equals(DUMMY_PASSWORD)) {
+                    return 3;
+                }
+
+                return 1;
+
+            }
+
+            @Override
+            protected void onPostExecute(final Integer success) {
+                showProgress(false);
+
+                switch (success) {
+                    case 1:
+                        showMainScreen();
+                        break;
+                    case 2:
+                    case 3:
+                        showLoginError("Número de identificación o contraseña inválidos");
+                        break;
+                    case 4:
+                        showLoginError(getString(R.string.error_server));
+                        break;
+                }
+            }
+
+            @Override
+            protected void onCancelled() {
+                showProgress(false);
+            }
+
+        }
     }
-
-
-
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    class UserLoginTask extends AsyncTask<Void, Void, Integer> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Integer doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return 4;
-            }
-
-            if (!mEmail.equals(DUMMY_USER_ID)) {
-                return 2;
-            }
-
-            if (!mPassword.equals(DUMMY_PASSWORD)) {
-                return 3;
-            }
-
-            return 1;
-
-        }
-
-        @Override
-        protected void onPostExecute(final Integer success) {
-            showProgress(false);
-
-            switch (success) {
-                case 1:
-                    showMainScreen();
-                    break;
-                case 2:
-                case 3:
-                    showLoginError("Número de identificación o contraseña inválidos");
-                    break;
-                case 4:
-                    showLoginError(getString(R.string.error_server));
-                    break;
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            showProgress(false);
-        }
-
-    }
-}
 
     private void showMainScreen() {
         Intent intent = new Intent(LoginActivity.this, WorkActivity.class);

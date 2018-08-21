@@ -21,6 +21,8 @@ public class RetrofitInstance {
     private static MobicobApiServices API_SERVICES_LOGIN;
     private static MobicobApiServices API_SERVICES_TASK;
 
+    private static String baseUrl = "http://192.168.1.14:3000/v1/";
+
     public static MobicobApiServices getApiServicesLogin(final Context context){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -28,7 +30,6 @@ public class RetrofitInstance {
         OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
-        String baseUrl = "http://192.168.1.14:3000/v1/";
         GsonConverterFactory loginFactory;
 
         loginFactory = GsonConverterFactory.create(buildLoginGson());
@@ -50,8 +51,6 @@ public class RetrofitInstance {
 
         OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
-
-        String baseUrl = "https://a7092694-1155-4872-b9e7-c64c40905210.mock.pstmn.io/";
         GsonConverterFactory tasksFactory;
 
         tasksFactory = GsonConverterFactory.create(buildTasksGson());
