@@ -1,5 +1,6 @@
 package com.mobicob.mobile.app.db.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -9,13 +10,18 @@ public class Campaign {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "campaign_id")
     private int id;
+    @ColumnInfo(name = "campaign_number")
     private int number;
     private String source;
+    @ColumnInfo(name = "campaign_state")
     private String state;
     private String initDate;
     private String finishDate;
+    @ColumnInfo(name = "campaign_created_at")
     private String createdAt;
+    @ColumnInfo(name = "campaign_updated_at")
     private String updatedAt;
 
     public Campaign() {

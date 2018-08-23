@@ -23,7 +23,7 @@ public class RetrofitInstance {
 
     private static String baseUrl = "http://192.168.1.14:3000/v1/";
 
-    public static MobicobApiServices getApiServicesLogin(final Context context){
+    public static MobicobApiServices getApiServicesLogin(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -45,7 +45,7 @@ public class RetrofitInstance {
         return API_SERVICES_LOGIN;
     }
 
-    public static MobicobApiServices getApiServicesTask(final Context context){
+    public static MobicobApiServices getApiServicesTask(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 

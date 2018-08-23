@@ -1,11 +1,11 @@
 package com.mobicob.mobile.app.db.entity;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 @Entity
 public class Task implements Serializable {
@@ -15,8 +15,10 @@ public class Task implements Serializable {
     private int id;
     private String validity;
     private String createdAt;
-    private int campaignId;
-    private int clientId;
+    @Embedded
+    private Campaign campaign;
+    @Embedded
+    private Client client;
     private int period;
     private String plan;
     private int userId;
@@ -31,7 +33,7 @@ public class Task implements Serializable {
     private String paymentDate;
     private String commitmentDate;
     private int personalContact;
-    private int Idnumber;
+    private int IdNumber;
     private String paymentHolder;
     private String phone;
     private String email;
@@ -41,7 +43,6 @@ public class Task implements Serializable {
     private int latitude;
     private int longitude;
     private String usedTime;
-
 
     public int getPeriod() {
         return period;
@@ -91,20 +92,20 @@ public class Task implements Serializable {
         this.estimatedTime = estimatedTime;
     }
 
-       public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public int getCampaignId() {
-        return campaignId;
+    public Campaign getCampaign() {
+        return campaign;
     }
 
-    public void setCampaignId(int campaignId) {
-        this.campaignId = campaignId;
+    public void setCampaign(Campaign campaign) {
+        this.campaign = campaign;
     }
 
     public int getId() {
@@ -195,12 +196,12 @@ public class Task implements Serializable {
         this.personalContact = personalContact;
     }
 
-    public int getIdnumber() {
-        return Idnumber;
+    public int getIdNumber() {
+        return IdNumber;
     }
 
-    public void setIdnumber(int idnumber) {
-        Idnumber = idnumber;
+    public void setIdNumber(int idNumber) {
+        IdNumber = idNumber;
     }
 
     public String getPaymentHolder() {

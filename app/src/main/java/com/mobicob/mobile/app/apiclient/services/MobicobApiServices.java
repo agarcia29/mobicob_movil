@@ -1,7 +1,7 @@
 package com.mobicob.mobile.app.apiclient.services;
 
 import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
 import com.mobicob.mobile.app.wrapper.ResultRequestWrapper;

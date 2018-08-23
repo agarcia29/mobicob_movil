@@ -16,13 +16,13 @@ import java.util.List;
 public interface ClientDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Client client);
+    public void insert(Client client);
 
     @Query("DELETE FROM Client")
-    void deleteAll();
+    public void deleteAll();
 
-    @Query("SELECT * from Client ORDER BY id ASC")
-    LiveData<List<Client>> getAllClients();
+    @Query("SELECT * from Client ORDER BY client_id ASC")
+    public LiveData<List<Client>> getAllClients();
 
     @Update
     public void updateClients(Client... clients);
@@ -30,7 +30,7 @@ public interface ClientDao {
     @Delete
     public void deleteClients(Client... clients);
 
-    @Query("SELECT * FROM client WHERE id = :id")
+    @Query("SELECT * FROM client WHERE client_id = :id")
     public LiveData<List<Client>> getClientById(int id);
 
 }

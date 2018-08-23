@@ -237,7 +237,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             //Gson gsonLogin = RetrofitInstance.buildLoginGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesLogin(LoginActivity.this);
+            MobicobApiServices api = RetrofitInstance.getApiServicesLogin();
             Call<LoginResponse> loginCall = api.login(new LoginRequestWrapper(email, password));
             loginCall.enqueue(new Callback<LoginResponse>() {
                 @Override

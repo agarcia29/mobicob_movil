@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.apiclient.JsonKeys;
 

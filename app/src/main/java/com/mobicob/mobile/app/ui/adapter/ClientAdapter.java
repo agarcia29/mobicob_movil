@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
 import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.Assignment
         holder.txtClientState.setText(mDataSet.get(position).getClient().getState()+"");
         holder.txtClientRoute.setText(mDataSet.get(position).getClient().getRoute()+"");
         holder.txtClientItinLectura.setText(mDataSet.get(position).getClient().getReadingItinerary()+"");
-        holder.txtClientAolFinca.setText(mDataSet.get(position).getClient().getaOLFinca()+"");
+        holder.txtClientAolFinca.setText(mDataSet.get(position).getClient().getAol()+"");
         holder.txtClientMeasurer.setText(mDataSet.get(position).getClient().getMeasurer()+"");
         holder.txtClientMeasurerType.setText(mDataSet.get(position).getClient().getMeasurerType()+"");
         holder.txtClientMeasurerBrand.setText(mDataSet.get(position).getClient().getMeasurerBrand()+"");

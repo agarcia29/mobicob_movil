@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mRecyclerView.setAdapter(mAdapter);
 
           //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesTask(MainActivity.this);
+            MobicobApiServices api = RetrofitInstance.getApiServicesTask();
             Call<TasksResponse> call = api.tasks(Preferences.getToken(MainActivity.this));
             call.enqueue(new Callback<TasksResponse>() {
                 @Override

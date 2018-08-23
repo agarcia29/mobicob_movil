@@ -1,5 +1,6 @@
 package com.mobicob.mobile.app.db.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
@@ -10,41 +11,47 @@ public class User {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "user_id")
     private int id;
 
+    @ColumnInfo(name = "user_username")
     private String username;
 
+    @ColumnInfo(name = "user_email")
     private String email;
 
+    @ColumnInfo(name = "user_password")
     private String password;
 
+    @ColumnInfo(name = "user_name")
     private String name;
 
+    @ColumnInfo(name = "user_lastName")
     private String lastName;
 
+    @ColumnInfo(name = "user_creation")
     private String creation;
 
+    @ColumnInfo(name = "user_id_number")
     private int idNumber;
 
-    private int contractorId;
-
-    private int roleId;
-
+    @ColumnInfo(name = "user_phone")
     private String phone;
 
+    @ColumnInfo(name = "user_address")
     private String address;
 
+    @ColumnInfo(name = "user_active")
     private boolean active;
 
+    @ColumnInfo(name = "user_latitude")
     private String latitude;
 
+    @ColumnInfo(name = "user_longitude")
     private String longitude;
 
-    private int delegationId;
-
+    @ColumnInfo(name = "user_position")
     private String position;
-
-    private String token;
 
     public User(){
 
@@ -52,9 +59,8 @@ public class User {
 
     @Ignore
     public User(int id, String username, String email, String name, String lastName, String creation,
-                int idNumber, int contractorId, int roleId, String phone, String address,
-                boolean active, String latitude, String longitude, int delegationId,
-                String position) {
+                int idNumber, String phone, String address,
+                boolean active, String latitude, String longitude, String position) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -62,14 +68,11 @@ public class User {
         this.lastName = lastName;
         this.creation = creation;
         this.idNumber = idNumber;
-        this.contractorId = contractorId;
-        this.roleId = roleId;
         this.phone = phone;
         this.address = address;
         this.active = active;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.delegationId = delegationId;
         this.position = position;
     }
 
@@ -129,22 +132,6 @@ public class User {
         this.idNumber = idNumber;
     }
 
-    public int getContractorId() {
-        return contractorId;
-    }
-
-    public void setContractorId(int contractorId) {
-        this.contractorId = contractorId;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -185,14 +172,6 @@ public class User {
         this.longitude = longitude;
     }
 
-    public int getDelegationId() {
-        return delegationId;
-    }
-
-    public void setDelegationId(int delegationId) {
-        this.delegationId = delegationId;
-    }
-
     public String getPosition() {
         return position;
     }
@@ -200,15 +179,6 @@ public class User {
     public void setPosition(String position) {
         this.position = position;
     }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
 
     public int getId() {
         return id;

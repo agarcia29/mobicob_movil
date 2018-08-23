@@ -1,6 +1,6 @@
 package com.mobicob.mobile.app.wrapper;
 
-import com.mobicob.mobile.app.model.User;
+import com.mobicob.mobile.app.db.entity.User;
 
 public class LoginRequestWrapper {
     private User user;

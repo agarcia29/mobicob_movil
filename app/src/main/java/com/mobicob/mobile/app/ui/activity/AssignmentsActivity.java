@@ -66,7 +66,7 @@ public class AssignmentsActivity extends Activity implements View.OnClickListene
             mRecyclerView.setAdapter(mAdapter);
 
             //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesTask(AssignmentsActivity.this);
+            MobicobApiServices api = RetrofitInstance.getApiServicesTask();
             Call<TasksResponse> call = api.tasks(Preferences.getToken(AssignmentsActivity.this));
             call.enqueue(new Callback<TasksResponse>() {
                 @Override

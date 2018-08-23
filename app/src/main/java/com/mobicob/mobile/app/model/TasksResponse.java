@@ -3,6 +3,8 @@ package com.mobicob.mobile.app.model;
 import java.io.Serializable;
 import java.util.List;
 
+import com.mobicob.mobile.app.db.entity.Task;
+
 public class TasksResponse implements Serializable {
 
     private List<Task> tasks;
