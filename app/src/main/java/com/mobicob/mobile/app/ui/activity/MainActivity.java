@@ -33,22 +33,12 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
 
-    List<Task> tasksInDB; //TODO solo para probar, se debe borrar
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tasks);
-            mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-
-            mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
-                @Override
-                public void onChanged(@Nullable final List<Task> tasks) {
-                    tasksInDB = tasks;
-                }
-            });
 
             RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
             mRecyclerView.setHasFixedSize(true);
@@ -59,32 +49,12 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mAdapter = new TasksAdapter(this);
             mRecyclerView.setAdapter(mAdapter);
 
-          //  Gson gsonTasks = RetrofitInstance.buildTasksGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesTask();
-            Call<TasksResponse> call = api.tasks(Preferences.getToken(MainActivity.this));
-            call.enqueue(new Callback<TasksResponse>() {
-                @Override
-                public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {
-                    if (response.isSuccessful()) {
-                        TasksResponse tasklist = response.body();
-                        Task newTask =new Task();
-                        if (tasksInDB!=null && !tasksInDB.isEmpty()){
-                            newTask.setId(tasksInDB.get(tasksInDB.size()-1).getId()+1);
-                        }
-                        else{
-                            newTask.setId(23);
-                        }
-                        newTask.setPlan("COBRO PERSONALIZADO");
-                        newTask.setValidity("weekly");
-                        mTaskViewModel.insert(newTask);
-                        mAdapter.setDataSet(tasklist);
-                    }
-                }
+            mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
+            mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
                 @Override
-                public void onFailure(Call<TasksResponse> call, Throwable t) {
-                    Log.e("MOBICOB", t.getMessage(), t);
-                    Toast.makeText(MainActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                public void onChanged(@Nullable final List<Task> tasks) {
+                    mAdapter.setDataSet(tasks);
                 }
             });
         }

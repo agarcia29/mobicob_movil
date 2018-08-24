@@ -23,26 +23,24 @@ public class TaskRepository {
 
     private TaskDao mTaskDao;
     private LiveData<List<Task>> mAllTasks;
-    private Context applicationContext;
 
     public TaskRepository(Application application) {
         MobicobDB db = MobicobDB.getDatabase(application);
         mTaskDao = db.taskDao();
-        mAllTasks = mTaskDao.getAllTasks();
-        if(mAllTasks.getValue().isEmpty()){
-            getTaskFromWS();
-        }
 
-        applicationContext = application.getApplicationContext();
+        if(mAllTasks==null || mAllTasks.getValue()==null || mAllTasks.getValue().isEmpty()){
+            getTaskFromWS(application.getApplicationContext());
+        }
+        mAllTasks = mTaskDao.getAllTasks();
     }
 
     public LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
     }
 
-    private void getTaskFromWS(){
+    private void getTaskFromWS(Context context){
         MobicobApiServices api = RetrofitInstance.getApiServicesTask();
-        Call<TasksResponse> call = api.tasks(Preferences.getToken(applicationContext));
+        Call<TasksResponse> call = api.tasks(Preferences.getToken(context));
         call.enqueue(new Callback<TasksResponse>() {
             @Override
             public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {

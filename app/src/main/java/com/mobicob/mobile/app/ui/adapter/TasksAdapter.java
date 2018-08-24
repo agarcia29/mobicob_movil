@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
 import com.mobicob.mobile.app.db.entity.Task;
-import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.apiclient.JsonKeys;
 
 import java.util.ArrayList;
@@ -23,8 +22,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
     private List<Task> mDataSet;
     private Context context;
 
-    public TasksAdapter(TasksResponse mDataSet) {
-        this.mDataSet = mDataSet.getTasks();
+    public TasksAdapter(List<Task> tasks) {
+        this.mDataSet = tasks;
     }
 
     public TasksAdapter(Context context) {
@@ -32,8 +31,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
         mDataSet = new ArrayList<>();
     }
 
-    public void setDataSet(TasksResponse dataSet){
-        mDataSet = dataSet.getTasks();
+    public void setDataSet(List<Task> tasks){
+        mDataSet = tasks;
         notifyDataSetChanged();
     }
     @Override
