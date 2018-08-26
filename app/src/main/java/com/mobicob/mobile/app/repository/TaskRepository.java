@@ -2,6 +2,7 @@ package com.mobicob.mobile.app.repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,6 +16,8 @@ import com.mobicob.mobile.app.db.dao.TaskDao;
 import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.session.Preferences;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -24,12 +27,13 @@ import retrofit2.Response;
 public class TaskRepository {
 
     private TaskDao mTaskDao;
-    private LiveData<List<Task>> mAllTasks;
+    private MutableLiveData<List<Task>> mAllTasks;
     private Observer<List<Task>> taskObserver;
 
     public TaskRepository(Application application) {
         MobicobDB db = MobicobDB.getDatabase(application);
         mTaskDao = db.taskDao();
+        mAllTasks = new MutableLiveData<List<Task>>();
         taskObserver =  new TaskObserver(application.getApplicationContext());
         mTaskDao.getAllTasks().observeForever(taskObserver);
     }
@@ -44,7 +48,7 @@ public class TaskRepository {
         return mAllTasks;
     }
 
-    private void getTaskFromWS(Context context){
+    public void getTaskFromWS(Context context){
         MobicobApiServices api = RetrofitInstance.getApiServicesTask();
         Call<TasksResponse> call = api.tasks(Preferences.getToken(context));
         call.enqueue(new Callback<TasksResponse>() {
@@ -53,15 +57,14 @@ public class TaskRepository {
                 if (response.isSuccessful()) {
                     TasksResponse tasksResponse = response.body();
                     insert(tasksResponse.getTasks());
-                    //mAllTasks.getValue().clear();
-                    //mAllTasks.getValue().addAll(tasksResponse.getTasks());
+                    mAllTasks.setValue(tasksResponse.getTasks());
                 }
             }
 
             @Override
             public void onFailure(Call<TasksResponse> call, Throwable t) {
                 Log.e("MOBICOB", t.getMessage(), t);
-                mAllTasks.getValue().clear();
+                mAllTasks.setValue(new ArrayList<Task>());
             }
         });
     }
@@ -85,27 +88,24 @@ public class TaskRepository {
 
         @Override
         protected Void doInBackground(final Task... params) {
-            mAsyncTaskDao.insert(params[0]);
+            mAsyncTaskDao.insert(params);
             return null;
         }
     }
 
     private class TaskObserver implements Observer<List<Task>>{
-
-        Context context;
+        private Context context;
 
         public TaskObserver(Context context){
             this.context = context;
         }
-
         @Override
         public void onChanged(@Nullable final List<Task> tasks) {
             if(tasks==null || tasks.isEmpty()) {
                 getTaskFromWS(context);
             }
             else{
-                mAllTasks.getValue().clear();
-                mAllTasks.getValue().addAll(tasks);
+                mAllTasks.setValue(tasks);
             }
         }
     }

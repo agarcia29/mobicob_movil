@@ -59,7 +59,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, AssignmentsActivity.class);
-                intent.putExtra(JsonKeys.TASK_CAMPAIGN_NUMBER,task.getCampaign().getNumber());
+                intent.putExtra(JsonKeys.TASK, task);
                 context.startActivity(intent);
             }
         });

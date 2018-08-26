@@ -38,6 +38,12 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.Assignment
         mDataSet = dataSet.getTasks();
         notifyDataSetChanged();
     }
+
+    public void setDataSet(List<Task> mDataSet){
+        this.mDataSet = mDataSet;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ClientAdapter.AssignmentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
