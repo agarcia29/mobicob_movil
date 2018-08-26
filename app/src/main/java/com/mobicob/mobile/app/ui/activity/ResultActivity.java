@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.session.Preferences;
@@ -22,8 +23,6 @@ public class ResultActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -38,5 +37,9 @@ public class ResultActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private void showErrorMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 }

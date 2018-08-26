@@ -30,16 +30,6 @@ public class LoginDeserializer implements JsonDeserializer<LoginResponse> {
             loginResp.setPosition(data.get(JsonKeys.LOGIN_POSITION).getAsString());
             loginResp.setJwt_token(data.get(JsonKeys.LOGIN_JWT_TOKEN).getAsString());
 
-            JsonObject delegation = data.getAsJsonObject(JsonKeys.DELEGATION_LOGIN_OBJECT);
-            loginResp.setDelegationId(delegation.get(JsonKeys.LOGIN_ID_OBJECT).getAsInt());
-
-            JsonObject contractor = data.getAsJsonObject(JsonKeys.CONTRACTOR_LOGIN_OBJECT);
-            loginResp.setContractorId(contractor.get(JsonKeys.LOGIN_ID_OBJECT).getAsInt());
-
-            JsonObject role = data.getAsJsonObject(JsonKeys.ROLE_LOGIN_OBJECT);
-            loginResp.setRoleId(role.get(JsonKeys.LOGIN_ID_OBJECT).getAsInt());
-
-
             return loginResp;
         } catch (Exception e) {
             Log.e("MOBICOB", e.getMessage(), e);

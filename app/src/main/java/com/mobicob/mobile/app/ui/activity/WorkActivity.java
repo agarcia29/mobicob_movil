@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.session.Preferences;
@@ -21,7 +22,6 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
             finish();
             return;
         }
-
         setContentView(R.layout.content_main);
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.assignedClientMenu);
@@ -32,7 +32,6 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
         LinearLayout linearLayout3 = (LinearLayout) findViewById(R.id.reportedManageMenu);
         linearLayout3.setOnClickListener(this);
-
     }
 
     @Override
@@ -47,7 +46,6 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.reportedManageMenu:
                 break;
         }
-
     }
 
     @Override
@@ -68,6 +66,9 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
 
+    private void showErrorMessage(String error) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 }

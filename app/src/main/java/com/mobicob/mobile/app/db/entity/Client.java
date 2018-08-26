@@ -1,14 +1,18 @@
 package com.mobicob.mobile.app.db.entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 @Entity
-public class Client {
+public class Client implements Serializable {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "client_id")
     private int id;
     private int nic;
     private String unicom;
@@ -21,13 +25,17 @@ public class Client {
     private String streetType;
     private String streetName;
     private String duplicator;
+    @ColumnInfo(name = "client_number")
     private int number;
     private String cgv;
     private String address;
     private String name;
+    @ColumnInfo(name = "client_id_number")
     private int idNumber;
+    @ColumnInfo(name = "client_phone")
     private String phone;
     private String rate;
+    @ColumnInfo(name = "client_state")
     private String state;
     private int route;
     private int readingItinerary;
@@ -41,7 +49,9 @@ public class Client {
     private int financedDebt;
     private int overdueBills;
     private int agreedBills;
+    @ColumnInfo(name = "client_created_at")
     private String createdAt;
+    @ColumnInfo(name = "client_updated_at")
     private String updatedAt;
 
     public int getNic() {

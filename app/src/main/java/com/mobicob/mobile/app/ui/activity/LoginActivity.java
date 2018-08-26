@@ -1,11 +1,8 @@
 package com.mobicob.mobile.app.ui.activity;
 
-
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -43,8 +39,6 @@ import com.mobicob.mobile.app.viewmodel.UserViewModel;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
 import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
 import com.mobicob.mobile.app.session.Preferences;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -237,7 +231,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             //Gson gsonLogin = RetrofitInstance.buildLoginGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesLogin(LoginActivity.this);
+            MobicobApiServices api = RetrofitInstance.getApiServicesLogin();
             Call<LoginResponse> loginCall = api.login(new LoginRequestWrapper(email, password));
             loginCall.enqueue(new Callback<LoginResponse>() {
                 @Override

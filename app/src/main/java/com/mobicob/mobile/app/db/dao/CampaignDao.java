@@ -16,13 +16,13 @@ import java.util.List;
 public interface CampaignDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Campaign campaign);
+    public void insert(Campaign campaign);
 
     @Query("DELETE FROM Campaign")
-    void deleteAll();
+    public void deleteAll();
 
-    @Query("SELECT * from Campaign ORDER BY id ASC")
-    LiveData<List<Campaign>> getAllCampaigns();
+    @Query("SELECT * from Campaign ORDER BY campaign_id ASC")
+    public LiveData<List<Campaign>> getAllCampaigns();
 
     @Update
     public void updateCampaigns(Campaign... campaigns);
@@ -30,7 +30,7 @@ public interface CampaignDao {
     @Delete
     public void deleteCampaigns(Campaign... campaigns);
 
-    @Query("SELECT * FROM Campaign WHERE id = :id")
+    @Query("SELECT * FROM Campaign WHERE campaign_id = :id")
     public LiveData<List<Campaign>> getCampaignById(int id);
 
 }

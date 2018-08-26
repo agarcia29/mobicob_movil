@@ -1,40 +1,20 @@
 package com.mobicob.mobile.app.wrapper;
 
-import com.mobicob.mobile.app.model.Result;
-import com.mobicob.mobile.app.model.Task;
+import com.mobicob.mobile.app.db.entity.Task;
+import java.util.List;
 
 public class ResultRequestWrapper {
-    private Task taskRequest;
+    private List<Task> tasks;
 
-    public  ResultRequestWrapper (Task task, Result result){
-        task.setUpdateAt(result.getUpdateAt());
-        task.setUser(result.getUser());
-        task.setManagementDate(result.getManagementDate());
-        task.setManagementTypeId(result.getManagementTypeId());
-        task.setResultTypeId(result.getResultTypeId());
-        task.setAnomalyTypeId(result.getAnomalyTypeId());
-        task.setCollectionEntity(result.getCollectionEntity());
-        task.setPaymentDate(result.getPaymentDate());
-        task.setCommitmentDate(result.getCommitmentDate());
-        task.setPersonalContact(result.isPersonalContact());
-        task.setIdnumber(result.getIdnumber());
-        task.setPaymentHolder(result.getPaymentHolder());
-        task.setPhone(result.getPhone());
-        task.setEmail(result.getEmail());
-        task.setObservations(result.getObservations());
-        task.setReadingSignature(result.getReadingSignature());
-        task.setDataphonePayment(result.isDataphonePayment());
-        task.setLatitude(result.getLatitude());
-        task.setLongitude(result.getLongitude());
-        task.setUsedTime(result.getUsedTime());
-        setTaskRequest(task);
+    public  ResultRequestWrapper (List<Task> tasks){
+        this.tasks = tasks;
     }
 
-    public Task getTaskRequest() {
-        return taskRequest;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
-    public void setTaskRequest(Task taskRequest) {
-        this.taskRequest = taskRequest;
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }
