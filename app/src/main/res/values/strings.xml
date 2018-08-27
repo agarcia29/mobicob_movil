@@ -4,6 +4,10 @@
     <string name="hint_name">Nombre</string>
     <string name="hint_pass">Contraseña</string>
     <string name="menu_LogOut">Cerrar session</string>
+    <string name="menu_download">Descargar Parametros</string>
+    <string name="menu_upload">Enviar Informacion</string>
+    <string name="menu_update">Actualizar Informacion</string>
+
 
     //Cliente
     <string name="hint_num_campaña">No. Campaña</string>
