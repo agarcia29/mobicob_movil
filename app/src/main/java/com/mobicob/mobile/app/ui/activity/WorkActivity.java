@@ -1,7 +1,10 @@
 package com.mobicob.mobile.app.ui.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,9 +13,20 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
+import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.session.Preferences;
+import com.mobicob.mobile.app.ui.adapter.TasksAdapter;
+import com.mobicob.mobile.app.viewmodel.TaskViewModel;
+
+import java.util.List;
 
 public class WorkActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private TasksAdapter mAdapter;
+    private TaskViewModel mTaskViewModel;
+    private int countAllTask;
+    private int countPendingTask;
+    private int countManagedTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +46,22 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
         LinearLayout linearLayout3 = (LinearLayout) findViewById(R.id.reportedManageMenu);
         linearLayout3.setOnClickListener(this);
+
+
+       mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+
+        mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable final List<Task> tasks) {
+                mAdapter.setDataSet(tasks);
+            }
+        });
+
+        countPendingTask = mTaskViewModel.countPendingTask();
+        countManagedTask = mTaskViewModel.countManagedTask();
+        countAllTask = countManagedTask + countPendingTask;
+
+
     }
 
     @Override

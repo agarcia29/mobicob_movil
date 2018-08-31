@@ -24,10 +24,6 @@ public class LoginDeserializer implements JsonDeserializer<LoginResponse> {
             JsonObject data = responseJson.getAsJsonObject(JsonKeys.DATA_RESPONSE_OBJECT);
             loginResp.setId(data.get(JsonKeys.LOGIN_ID).getAsInt());
             loginResp.setEmail(data.get(JsonKeys.LOGIN_EMAIL).getAsString());
-            loginResp.setIdNumber(data.get(JsonKeys.LOGIN_ID_NUMBER).getAsString());
-            loginResp.setName(data.get(JsonKeys.LOGIN_NAME).getAsString());
-            loginResp.setLastname(data.get(JsonKeys.LOGIN_LASTNAME).getAsString());
-            loginResp.setPosition(data.get(JsonKeys.LOGIN_POSITION).getAsString());
             loginResp.setJwt_token(data.get(JsonKeys.LOGIN_JWT_TOKEN).getAsString());
 
             return loginResp;

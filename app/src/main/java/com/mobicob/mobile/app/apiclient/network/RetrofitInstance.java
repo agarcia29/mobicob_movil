@@ -21,7 +21,7 @@ public class RetrofitInstance {
     private static MobicobApiServices API_SERVICES_LOGIN;
     private static MobicobApiServices API_SERVICES_TASK;
 
-    private static String baseUrl = "http://192.168.1.15:3000/v1/";
+    private static String baseUrl = "https://mobicob-dev.herokuapp.com/v1/";
 
     public static MobicobApiServices getApiServicesLogin(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

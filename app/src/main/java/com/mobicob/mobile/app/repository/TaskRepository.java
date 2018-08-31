@@ -29,12 +29,15 @@ public class TaskRepository {
     private TaskDao mTaskDao;
     private MutableLiveData<List<Task>> mAllTasks;
     private Observer<List<Task>> taskObserver;
-
+    private int mManagedTask;
+    private int mPendingTask;
     public TaskRepository(Application application) {
         MobicobDB db = MobicobDB.getDatabase(application);
         mTaskDao = db.taskDao();
         mAllTasks = new MutableLiveData<List<Task>>();
         taskObserver =  new TaskObserver(application.getApplicationContext());
+        mManagedTask = mTaskDao.countManagedTask();
+        mPendingTask = mTaskDao.countPendingTask();
         mTaskDao.getAllTasks().observeForever(taskObserver);
     }
 
@@ -47,6 +50,10 @@ public class TaskRepository {
     public LiveData<List<Task>> getAllTasks() {
         return mAllTasks;
     }
+
+    public int countManagedTask(){return mManagedTask;}
+
+    public int countPendingTask(){return mPendingTask;}
 
     public void getTaskFromWS(Context context){
         MobicobApiServices api = RetrofitInstance.getApiServicesTask();

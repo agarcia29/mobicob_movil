@@ -46,14 +46,6 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mAdapter = new TasksAdapter(this);
             mRecyclerView.setAdapter(mAdapter);
 
-            mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-
-            mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
-                @Override
-                public void onChanged(@Nullable final List<Task> tasks) {
-                    mAdapter.setDataSet(tasks);
-                }
-            });
         }
         catch(Exception e)
         {
