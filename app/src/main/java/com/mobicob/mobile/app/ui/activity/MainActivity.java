@@ -11,22 +11,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
 import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.ui.adapter.TasksAdapter;
 import com.mobicob.mobile.app.session.Preferences;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.viewmodel.TaskViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<TasksResponse> {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
 
@@ -46,12 +49,24 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mAdapter = new TasksAdapter(this);
             mRecyclerView.setAdapter(mAdapter);
 
+            Bundle extra = getIntent().getExtras();
+            Task task = (Task) extra.get(JsonKeys.TASK);
+            List<Task> taskList = new ArrayList<>();
+            taskList.add(task);
+            mAdapter.setDataSet(taskList);
+
         }
         catch(Exception e)
         {
             Log.e("MOBICOB", e.getMessage(), e);
             showErrorMessage(e.getMessage());
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, ResultActivity.class );
+        startActivity(intent);
     }
 
     @Override
@@ -73,17 +88,6 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    @Override
-    public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<TasksResponse> call, Throwable t) {
-        Log.e("MOBICOB", t.getMessage(), t);
-        showErrorMessage(t.getMessage());
     }
 
     private void showErrorMessage(String error) {
