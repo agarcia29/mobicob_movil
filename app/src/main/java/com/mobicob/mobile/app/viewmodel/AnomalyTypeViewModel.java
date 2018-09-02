@@ -21,7 +21,7 @@ public class AnomalyTypeViewModel extends AndroidViewModel {
         mAllAnomalyTypes = mRepository.getAllAnomalyTypes();
     }
 
-    LiveData<List<AnomalyType>> getAllAnomalyTypes() { return mAllAnomalyTypes; }
+    public LiveData<List<AnomalyType>> getAllAnomalyTypes() { return mAllAnomalyTypes; }
 
     public void insert(AnomalyType anomalyType) { mRepository.insert(anomalyType); }
 }

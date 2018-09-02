@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.ResultResponse;
 
 public class Preferences {
 
@@ -39,6 +40,14 @@ public class Preferences {
             editor.putString(PREF_user_ID, loginClient.getId()+"");
             editor.putString(PREF_user_EMAIL, loginClient.getEmail());
             editor.putString(PREF_user_TOKEN, loginClient.getJwt_token());
+            editor.apply();
+        }
+    }
+
+    public void saveResultData(ResultResponse resultTask) {
+        if (resultTask != null) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString(PREF_user_ID, resultTask.getId()+"");
             editor.apply();
         }
     }

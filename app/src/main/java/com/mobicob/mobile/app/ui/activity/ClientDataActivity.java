@@ -27,6 +27,8 @@ public class ClientDataActivity extends Activity implements View.OnClickListener
     private RecyclerView mRecyclerView;
     private ClientAdapter mAdapter;
 
+    private Task mTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,9 +49,9 @@ public class ClientDataActivity extends Activity implements View.OnClickListener
             mRecyclerView.setAdapter(mAdapter);
 
             Bundle extra = getIntent().getExtras();
-            Task task = (Task) extra.get(JsonKeys.TASK);
+            mTask = (Task) extra.get(JsonKeys.TASK);
             List<Task> taskList = new ArrayList<>();
-            taskList.add(task);
+            taskList.add(mTask);
             mAdapter.setDataSet(taskList);
         }
         catch(Exception e)
@@ -62,6 +64,7 @@ public class ClientDataActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(this, ResultActivity.class );
+        intent.putExtra(JsonKeys.TASK, mTask);
         startActivity(intent);
     }
 

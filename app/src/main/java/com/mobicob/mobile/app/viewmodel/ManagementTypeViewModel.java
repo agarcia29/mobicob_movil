@@ -21,7 +21,7 @@ public class ManagementTypeViewModel extends AndroidViewModel {
         mAllManagementTypes = mRepository.getAllManagementTypes();
     }
 
-    LiveData<List<ManagementType>> getAllManagementTypes() { return mAllManagementTypes; }
+    public LiveData<List<ManagementType>> getAllManagementTypes() { return mAllManagementTypes; }
 
     public void insert(ManagementType managementType) { mRepository.insert(managementType); }
 }

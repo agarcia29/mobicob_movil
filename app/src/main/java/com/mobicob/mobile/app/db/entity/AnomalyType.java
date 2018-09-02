@@ -15,6 +15,7 @@ public class AnomalyType implements Serializable {
     private String code;
     private String name;
     private String description;
+    private int resultId;
 
     public AnomalyType() {
     }
@@ -50,5 +51,13 @@ public class AnomalyType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getResultId() {
+        return resultId;
+    }
+
+    public void setResultId(int resultId) {
+        this.resultId = resultId;
     }
 }

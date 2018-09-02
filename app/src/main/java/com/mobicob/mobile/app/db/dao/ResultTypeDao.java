@@ -24,6 +24,9 @@ public interface ResultTypeDao {
     @Query("SELECT * from ResultType ORDER BY id ASC")
     LiveData<List<ResultType>> getAllResultTypes();
 
+    @Query("SELECT * from ResultType WHERE managementId = :managementId ORDER BY id ASC")
+    public LiveData<List<ResultType>> getByMangementType(int managementId);
+
     @Update
     public void updateResultTypes(ResultType... resultTypes);
 
@@ -31,6 +34,6 @@ public interface ResultTypeDao {
     public void deleteResultTypes(ResultType... resultTypes);
 
     @Query("SELECT * FROM resultType WHERE id = :id")
-    public LiveData<List<ResultType>> getResultTypeById(int id);
+    public LiveData<List<ResultType>> getById(int id);
 
 }

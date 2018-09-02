@@ -2,271 +2,258 @@ package com.mobicob.mobile.app.ui.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
+import com.mobicob.mobile.app.apiclient.JsonKeys;
 import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
 import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
+import com.mobicob.mobile.app.db.entity.AnomalyType;
+import com.mobicob.mobile.app.db.entity.ManagementType;
+import com.mobicob.mobile.app.db.entity.ResultType;
+import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.db.entity.User;
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.ResultResponse;
 import com.mobicob.mobile.app.session.Preferences;
+import com.mobicob.mobile.app.viewmodel.AnomalyTypeViewModel;
+import com.mobicob.mobile.app.viewmodel.ManagementTypeViewModel;
+import com.mobicob.mobile.app.viewmodel.ResultTypeViewModel;
+import com.mobicob.mobile.app.viewmodel.TaskViewModel;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
+import com.mobicob.mobile.app.wrapper.ResultRequestWrapper;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     private View mProgressView;
-    private View mResultFormView;
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+
+    private Task mTask;
+
+    private AppCompatEditText userId;
+    private AppCompatEditText managementDate;
+
+    private AppCompatSpinner managementTypeSpinner;
+    private ManagementType   itemManagementTypeSelected;
+    private AppCompatSpinner resultTypeSpinner;
+    private ResultType       itemResultTypeSelected;
+    private AppCompatSpinner anomalyTypeSpinner;
+    private AnomalyType      itemAnomalyTypeSelected;
+
+    private AppCompatEditText collectionEntity;
+    private AppCompatEditText paymentDate;
+    private AppCompatEditText comPaymentDate;
+
+    private AppCompatEditText personalContact;
+    private AppCompatEditText idNumber;
+   // private AppCompatEditText clientName;
+    private AppCompatEditText phone;
+    private AppCompatEditText email;
+
+    private AppCompatEditText observation;
+    private AppCompatEditText readingSignature;
+    private AppCompatEditText dataphonePayment;
+    private AppCompatEditText usedTime;
+
+    private Button mSaveButton;
+
+    private List<ManagementType> managementTypesList;
+    private ArrayAdapter<ManagementType> adapterManagementSpinner;
+    private List<ResultType> resultTypeList;
+    private ArrayAdapter<ResultType> adapterResultSpinner;
+    private List<AnomalyType> anomalyTypeList;
+    private ArrayAdapter<AnomalyType> adapterAnomalySpinner;
+
+    private ManagementTypeViewModel mManagementTypeViewModel;
+    private ResultTypeViewModel mResultTypeViewModel;
+    private AnomalyTypeViewModel mAnomalyTypeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Button mSaveButton = (Button) findViewById(R.id.saveButton);
 
+        Bundle extra = getIntent().getExtras();
+        mTask = (Task) extra.get(JsonKeys.TASK);
 
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
+        initViews();
+        initListeners();
+
+        managementTypesList = new ArrayList<>();
+        resultTypeList = new ArrayList<>();
+        anomalyTypeList = new ArrayList<>();
+
+        mManagementTypeViewModel = ViewModelProviders.of(this).get(ManagementTypeViewModel.class);
+        mResultTypeViewModel = ViewModelProviders.of(this).get(ResultTypeViewModel.class);
+        mAnomalyTypeViewModel = ViewModelProviders.of(this).get(AnomalyTypeViewModel.class);
+
+        mManagementTypeViewModel.getAllManagementTypes().observe(this, new Observer<List<ManagementType>>() {
             @Override
-            public void onClick(View view) {
-                if (!isOnline()) {
-                   /*TODO:Guardar en la base de datos temporal*/
-                    return;
-                }
-                attemptSendResult();
-
+            public void onChanged(@Nullable final List<ManagementType> managementTypes) {
+                managementTypesList = managementTypes;
             }
         });
-        Button mEmailSignInButton = (Button) findViewById(R.id.saveButton);
-        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+
+        adapterManagementSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, managementTypesList);
+        adapterManagementSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterManagementSpinner.setNotifyOnChange(true);
+        managementTypeSpinner.setAdapter(adapterManagementSpinner);
+
+        managementTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                attemptSendResult();
-            }
-        });
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                itemManagementTypeSelected = managementTypesList.get(i);
 
-        mResultFormView = findViewById(R.id.result_form);
-        mProgressView = findViewById(R.id.result_progress);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_logOut:
-                //metodoAdd()
-                Preferences.get(this).sessionDestroy();
-                startActivity(new Intent(this, LoginActivity.class));
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }
-
-    private void showErrorMessage(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-    private void showLoginError(String error) {
-        Toast.makeText(ResultActivity.this, error, Toast.LENGTH_LONG).show();
-    }
-    private boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
-    }
-
-    private void showSaveWithoutConection(String message) {
-        /*TODO: MENSAJE DE GUARDADO EN BASE DE DATOS LOCAL
-        //Toast.makeText(LoginActivity.this, error, Toast.LENGTH_LONG).show();
-         */
-    }
-
-    private void attemptSendResult() {
-
-
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (TextUtils.isEmpty(password)) {
-            mPasswordView.setError(getString(R.string.error_field_required));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true);
-            //Gson gsonLogin = RetrofitInstance.buildLoginGson();
-            MobicobApiServices api = RetrofitInstance.getApiServicesLogin();
-            Call<LoginResponse> loginCall = api.login(new LoginRequestWrapper(email, password));
-            loginCall.enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
-                    showProgress(false);
-
-                    if (response.isSuccessful()) {
-                        Preferences.get(ResultActivity.this).saveAuthData(response.body());
-                        User currentUser =new User();
-                        currentUser.setEmail(response.body().getEmail());
-                        currentUser.setId(response.body().getId());
-                       // mUserViewModel.insert(currentUser);
-                        showMainScreen();
-                    }else{
-                        String error;
-                        if (response.errorBody()
-                                .contentType()
-                                .subtype()
-                                .equals("application/json")) {
-
-                            error = response.message();
-                            Log.d("LoginActivity", error);
-                        } else {
-                            error = response.message();
-                            showLoginError(error);
-                            return;
-                        }
+                mResultTypeViewModel.getByMangementType(itemManagementTypeSelected.getId()).
+                        observe(ResultActivity.this, new Observer<List<ResultType>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<ResultType> resultTypes) {
+                        resultTypeList = resultTypes;
                     }
-                }
-
-                @Override
-                public void onFailure (Call<LoginResponse> call, Throwable t) {
-                    Log.e("MOBICOB", t.getMessage(), t);
-                    showProgress(false);
-                    showLoginError(t.getMessage());
-                }
-
-            });
-        }
-
-        /**
-         * Represents an asynchronous login/registration task used to authenticate
-         * the user.
-         */
-      /* class UserLoginTask extends AsyncTask<Void, Void, Integer> {
-
-            private final String mEmail;
-            private final String mPassword;
-
-            UserLoginTask(String email, String password) {
-                mEmail = email;
-                mPassword = password;
-            }
-
-
-
-            @Override
-            protected void onPostExecute(final Integer success) {
-                showProgress(false);
-
-                switch (success) {
-                    case 1:
-                        showMainScreen();
-                        break;
-                    case 2:
-                    case 3:
-                        showLoginError("Número de identificación o contraseña inválidos");
-                        break;
-                    case 4:
-                        showLoginError(getString(R.string.error_server));
-                        break;
-                }
+                });
             }
 
             @Override
-            protected void onCancelled() {
-                showProgress(false);
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        adapterResultSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, resultTypeList);
+        adapterResultSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        resultTypeSpinner.setAdapter(adapterResultSpinner);
+
+        resultTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                itemResultTypeSelected = resultTypeList.get(i);
+                mAnomalyTypeViewModel.getAllAnomalyTypes().
+                        observe(ResultActivity.this, new Observer<List<AnomalyType>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<AnomalyType> anomalyTypes) {
+                        anomalyTypeList = anomalyTypes;
+                    }
+                });
             }
 
-        }*/
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        adapterAnomalySpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, anomalyTypeList);
+        adapterAnomalySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        anomalyTypeSpinner.setAdapter(adapterAnomalySpinner);
+
+        anomalyTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                itemAnomalyTypeSelected = anomalyTypeList.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+    private void initListeners() {
+        mSaveButton.setOnClickListener(ResultActivity.this);
     }
 
-    private void showMainScreen() {
-        Intent intent = new Intent(ResultActivity.this, TaskActivity.class);
-        startActivity(intent);
-        finish();
+    private void initViews() {
+        userId = (AppCompatEditText) findViewById(R.id.userId);
+        managementDate = (AppCompatEditText) findViewById(R.id.managementDate);
+
+        managementTypeSpinner = (AppCompatSpinner) findViewById(R.id.managementType);
+        resultTypeSpinner = (AppCompatSpinner) findViewById(R.id.resultType);
+        anomalyTypeSpinner = (AppCompatSpinner) findViewById(R.id.anomalyType);
+
+        collectionEntity = (AppCompatEditText) findViewById(R.id.collectionEntity);
+        paymentDate = (AppCompatEditText) findViewById(R.id.paymentDate);
+        comPaymentDate = (AppCompatEditText) findViewById(R.id.comPaymentDate);
+
+        personalContact = (AppCompatEditText) findViewById(R.id.personalContact);
+        idNumber = (AppCompatEditText) findViewById(R.id.idNumber);
+       // clientName = (AppCompatEditText) findViewById(R.id.clientName);
+        phone = (AppCompatEditText) findViewById(R.id.phone);
+        email = (AppCompatEditText) findViewById(R.id.email);
+
+        observation = (AppCompatEditText) findViewById(R.id.observation);
+        readingSignature = (AppCompatEditText) findViewById(R.id.readingSignature);
+        dataphonePayment = (AppCompatEditText) findViewById(R.id.dataphonePayment);
+        usedTime = (AppCompatEditText) findViewById(R.id.usedTime);
+
+        mSaveButton = (Button) findViewById(R.id.saveButton);
     }
 
-    private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
-            mResultFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mResultFormView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mResultFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mProgressView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-                }
-            });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mResultFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-        }
+    @Override
+    public void onClick(View view) {
+        updateDataTask();
     }
-    
+
+    private void updateDataTask() {
+        int intUserId = Integer.parseInt(userId.getText().toString().trim());
+        int intPersonalContact =  Integer.parseInt(personalContact.getText().toString().trim());
+        int intIdNumber = Integer.parseInt(idNumber.getText().toString().trim());
+        int intReadingSignature = Integer.parseInt(readingSignature.getText().toString().trim());
+        int intDataphonePayment = Integer.parseInt(dataphonePayment.getText().toString().trim());
+        mTask.setUserId(intUserId);
+        mTask.setManagementDate(managementDate.getText().toString().trim());
+        mTask.setManagementTypeId(itemManagementTypeSelected.getId());
+        mTask.setResultTypeId(itemResultTypeSelected.getId());
+        mTask.setAnomalyTypeId(itemAnomalyTypeSelected.getId());
+        mTask.setCollectionEntity(collectionEntity.getText().toString().trim());
+        mTask.setPaymentDate(paymentDate.getText().toString().trim());
+        mTask.setCommitmentDate(comPaymentDate.getText().toString().trim());
+        mTask.setPersonalContact(intPersonalContact);
+        mTask.setIdNumber(intIdNumber);
+        mTask.setPhone(phone.getText().toString().trim());
+        mTask.setEmail(email.getText().toString().trim());
+        mTask.setObservations(observation.getText().toString().trim());
+        mTask.setReadingSignature(intReadingSignature);
+        mTask.setDataphonePayment(intDataphonePayment);
+        mTask.setUsedTime(usedTime.getText().toString().trim());
+    }
+
 }

@@ -15,6 +15,7 @@ public class ResultType implements Serializable {
     private String code;
     private String name;
     private String description;
+    private int managementId;
 
     @NonNull
     public int getId() {
@@ -47,5 +48,13 @@ public class ResultType implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getManagementId() {
+        return managementId;
+    }
+
+    public void setManagementId(int managementId) {
+        this.managementId = managementId;
     }
 }

@@ -25,6 +25,10 @@ public class ResultTypeRepository {
         return mAllResultTypes;
     }
 
+    public LiveData<List<ResultType>> getByMangementType(int managementId){
+        return mResultTypeDao.getByMangementType(managementId);
+    }
+
 
     public void insert (ResultType resultType) {
         new InsertAsyncTask(mResultTypeDao).execute(resultType);

@@ -20,6 +20,7 @@ public class RetrofitInstance {
 
     private static MobicobApiServices API_SERVICES_LOGIN;
     private static MobicobApiServices API_SERVICES_TASK;
+    private static MobicobApiServices API_SERVICES_RESULT;
 
     private static String baseUrl = "https://mobicob-dev.herokuapp.com/v1/";
 
@@ -65,6 +66,41 @@ public class RetrofitInstance {
         }
         return API_SERVICES_TASK;
     }
+
+    public static MobicobApiServices getApiServicesResult(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
+        GsonConverterFactory resultFactory;
+
+        resultFactory = GsonConverterFactory.create(buildResultGson());
+
+        if (API_SERVICES_RESULT == null){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(resultFactory)
+                    .client(httpClient.build())
+                    .build();
+            API_SERVICES_RESULT = retrofit.create(MobicobApiServices.class);
+        }
+        return API_SERVICES_RESULT;
+    }
+
+    public static Gson buildResultGson(){
+        try {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(TasksResponse.class, new TasksDeserializer());
+            return gsonBuilder.create();
+        }
+        catch(Exception e){
+            Log.e("MOBICOB", e.getMessage(), e);
+        }
+        return null;
+    }
+
     public static Gson buildTasksGson(){
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();

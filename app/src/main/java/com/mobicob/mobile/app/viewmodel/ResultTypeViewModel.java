@@ -12,7 +12,6 @@ import java.util.List;
 public class ResultTypeViewModel extends AndroidViewModel {
 
     private ResultTypeRepository mRepository;
-
     private LiveData<List<ResultType>> mAllResultTypes;
 
     public ResultTypeViewModel(Application application) {
@@ -21,7 +20,11 @@ public class ResultTypeViewModel extends AndroidViewModel {
         mAllResultTypes = mRepository.getAllResultTypes();
     }
 
-    LiveData<List<ResultType>> getAllResultTypes() { return mAllResultTypes; }
+    public LiveData<List<ResultType>> getAllResultTypes() { return mAllResultTypes; }
+
+    public LiveData<List<ResultType>> getByMangementType(int managementId){
+        return mRepository.getByMangementType(managementId);
+    }
 
     public void insert(ResultType resultType) { mRepository.insert(resultType); }
 }

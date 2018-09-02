@@ -1,20 +1,24 @@
 package com.mobicob.mobile.app.wrapper;
 
 import com.mobicob.mobile.app.db.entity.Task;
+import com.mobicob.mobile.app.db.entity.User;
+
 import java.util.List;
 
 public class ResultRequestWrapper {
-    private List<Task> tasks;
+    private Task tasks;
 
-    public  ResultRequestWrapper (List<Task> tasks){
-        this.tasks = tasks;
+    public ResultRequestWrapper(int email, String password) {
+        setTasks(new Task());
+        getTasks().setAnomalyTypeId(email) ;
+      //  getTasks().setPassword(password);
     }
 
-    public List<Task> getTasks() {
+    public Task getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(Task tasks) {
         this.tasks = tasks;
     }
 }
