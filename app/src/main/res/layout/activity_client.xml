@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/clientInformation"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="start"/>
@@ -30,12 +30,17 @@
         android:clipToPadding="false"
         android:gravity="center"
         android:orientation="vertical">
+        <Button
+            android:id="@+id/editGestionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:layout_gravity="right"
+            android:text="GESTIONAR" />
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerViewAssignments"/>
-
-
 
 
     </LinearLayout>

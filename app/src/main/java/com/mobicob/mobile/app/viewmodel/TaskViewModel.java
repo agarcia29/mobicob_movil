@@ -13,9 +13,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     private TaskRepository mRepository;
 
-    private int mManagedTask;
+    private LiveData<Integer> mManagedTask;
 
-    private int mPendingTask;
+    private LiveData<Integer> mPendingTask;
 
     private LiveData<List<Task>> mAllTasks;
 
@@ -29,9 +29,9 @@ public class TaskViewModel extends AndroidViewModel {
 
     public LiveData<List<Task>> getAllTasks() { return mAllTasks; }
 
-    public int countManagedTask(){return mManagedTask;}
+    public LiveData<Integer> countManagedTask(){return mManagedTask;}
 
-    public int countPendingTask(){return mPendingTask;}
+    public LiveData<Integer> countPendingTask(){return mPendingTask;}
 
     public void insert(Task task) { mRepository.insert(task); }
 

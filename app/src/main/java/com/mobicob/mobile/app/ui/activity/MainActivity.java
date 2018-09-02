@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements Callback<TasksResponse> {
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
 
@@ -48,25 +48,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             mAdapter = new TasksAdapter(this);
             mRecyclerView.setAdapter(mAdapter);
-
-            Bundle extra = getIntent().getExtras();
-            Task task = (Task) extra.get(JsonKeys.TASK);
-            List<Task> taskList = new ArrayList<>();
-            taskList.add(task);
-            mAdapter.setDataSet(taskList);
-
+            mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+            mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+                @Override
+                public void onChanged(@Nullable final List<Task> tasks) {
+                    mAdapter.setDataSet(tasks);
+                }
+            });
         }
         catch(Exception e)
         {
             Log.e("MOBICOB", e.getMessage(), e);
             showErrorMessage(e.getMessage());
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this, ResultActivity.class );
-        startActivity(intent);
     }
 
     @Override
@@ -90,8 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<TasksResponse> call, Throwable t) {
+        Log.e("MOBICOB", t.getMessage(), t);
+        showErrorMessage(t.getMessage());
+    }
+
     private void showErrorMessage(String error) {
         Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 }
-

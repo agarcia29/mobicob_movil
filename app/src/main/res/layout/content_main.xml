@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center"
-                    android:text="2"
+                    android:text=""
                     android:textSize="18dp"
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                         android:id="@+id/NumClientP"
                         android:textColor="@color/colorPrimary"
                         android:layout_gravity="center"
-                        android:text="1"
+                        android:text=""
                         android:layout_marginLeft="8dp"
                         android:textSize="18dp"
                         android:textStyle="bold"
@@ -139,9 +139,10 @@
                     <TextView
                         android:id="@+id/NumClientGR"
                         android:layout_gravity="center"
-                        android:layout_width="wrap_content"                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:textColor="@color/colorPrimary"
-                        android:text="1"
+                        android:text=""
                         android:layout_marginLeft="8dp"
                         android:textSize="18dp"
                         android:textStyle="bold"/>

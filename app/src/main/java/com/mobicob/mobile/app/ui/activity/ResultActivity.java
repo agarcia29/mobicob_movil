@@ -10,12 +10,15 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
@@ -34,6 +37,9 @@ public class ResultActivity extends AppCompatActivity {
 
     private View mProgressView;
     private View mResultFormView;
+
+    private AutoCompleteTextView mEmailView;
+    private EditText mPasswordView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,19 +131,11 @@ public class ResultActivity extends AppCompatActivity {
             mPasswordView.setError(getString(R.string.error_field_required));
             focusView = mPasswordView;
             cancel = true;
-        } else if (!isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
             focusView = mEmailView;
             cancel = true;
         }
@@ -160,11 +158,11 @@ public class ResultActivity extends AppCompatActivity {
                     showProgress(false);
 
                     if (response.isSuccessful()) {
-                        Preferences.get(LoginActivity.this).saveAuthData(response.body());
+                        Preferences.get(ResultActivity.this).saveAuthData(response.body());
                         User currentUser =new User();
                         currentUser.setEmail(response.body().getEmail());
                         currentUser.setId(response.body().getId());
-                        mUserViewModel.insert(currentUser);
+                       // mUserViewModel.insert(currentUser);
                         showMainScreen();
                     }else{
                         String error;
@@ -197,7 +195,7 @@ public class ResultActivity extends AppCompatActivity {
          * Represents an asynchronous login/registration task used to authenticate
          * the user.
          */
-        class UserLoginTask extends AsyncTask<Void, Void, Integer> {
+      /* class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
             private final String mEmail;
             private final String mPassword;
@@ -232,7 +230,7 @@ public class ResultActivity extends AppCompatActivity {
                 showProgress(false);
             }
 
-        }
+        }*/
     }
 
     private void showMainScreen() {

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +32,8 @@ public class AssignmentsActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
 
-        // LinearLayout editGestionButton = (LinearLayout) findViewById(R.id.editGestionButton);
-        // editGestionButton.setOnClickListener(this);
+        Button editGestionButton = (Button) findViewById(R.id.editGestionButton);
+        editGestionButton.setOnClickListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewAssignments);
         mRecyclerView.setHasFixedSize(true);
 

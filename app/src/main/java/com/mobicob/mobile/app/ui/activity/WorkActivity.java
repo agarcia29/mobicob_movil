@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
@@ -24,9 +25,8 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
-    private int countAllTask;
-    private int countPendingTask;
-    private int countManagedTask;
+    private int countAllTask = 0;
+    private int countManagedTask = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,25 +53,31 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
         mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> tasks) {
-                mAdapter.setDataSet(tasks);
+                mTaskViewModel.countPendingTask().observe(WorkActivity.this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(@Nullable Integer pendingTaskCount) {
+                        countAllTask = tasks.size();
+                        TextView txtNumAllTask = (TextView) findViewById(R.id.NumClientA);
+                        txtNumAllTask.setText(countAllTask+"");
+                        TextView txtNumPTask = (TextView) findViewById(R.id.NumClientP);
+                        txtNumPTask.setText(pendingTaskCount.toString());
+                        countManagedTask = countAllTask - pendingTaskCount.intValue();
+                        TextView txtNumMTask = (TextView) findViewById(R.id.NumClientGR);
+                        txtNumMTask.setText(countManagedTask+"");
+                    }
+                });
             }
         });
-
-        countPendingTask = mTaskViewModel.countPendingTask();
-        countManagedTask = mTaskViewModel.countManagedTask();
-        countAllTask = countManagedTask + countPendingTask;
-
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.assignedClientMenu:
-                Intent intent = new Intent(this, MainActivity.class );
-                startActivity(intent);
             break;
             case R.id.pendingClientMenu:
+                Intent intent = new Intent(this, MainActivity.class );
+                startActivity(intent);
                 break;
             case R.id.reportedManageMenu:
                 break;

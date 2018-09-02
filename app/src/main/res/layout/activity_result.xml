@@ -9,7 +9,7 @@
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/result_progress"
-        style="?android:attr/progressBarStyleLarge"
+        style="attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -61,11 +61,12 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp">
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/lastUpdate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Fecha Actualizacion"
-                            android:text="2018-08-13"
+                            android:text=""
                             android:textColor="#000" />
                         </android.support.design.widget.TextInputLayout>
                         <android.support.design.widget.TextInputLayout
@@ -73,6 +74,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="3dp">
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/userId"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -87,6 +89,7 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/managementDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -150,13 +153,13 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Entidad Reacaudadora"
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:hint="Entidad Reacaudadora"
                             android:text="BRINKS"
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
@@ -169,11 +172,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/paymentDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Fecha de Pago"
-                            android:text="2018-08-13"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -183,10 +187,11 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/comPaymentDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="2018-08-13"
+                            android:text=""
                             android:hint="F. Com. Pago"
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
@@ -197,11 +202,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/personalContact"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Pers. Contact"
-                            android:text="Si"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -211,11 +217,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/idNumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Cedula"
-                            android:text="1.143.154.363"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -225,11 +232,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/clientName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Cliente"
-                            android:text="ANA SOFIA VIZCAINO MONSALVO"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -239,11 +247,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Telefono"
-                            android:text="3006091059"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -253,6 +262,7 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -267,11 +277,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/observation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Observaciones"
-                            android:text="numero de celular equivocado"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -281,11 +292,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/readingSignature"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Lect. Firma"
-                            android:text="2975"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -295,11 +307,12 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/dataphonePayment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Pago Con Datafono"
-                            android:text="Si"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -309,12 +322,13 @@
                         android:layout_margin="3dp">
 
                         <android.support.v7.widget.AppCompatEditText
-                            android:id="@+id/tvClientNoCampaign"
+
+                            android:id="@+id/usedTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Hora Duracion"
-                            android:text="8:52:02 AM"
+                            android:hint="Tiempo Duracion"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
