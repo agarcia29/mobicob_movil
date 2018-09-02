@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<TasksResponse> {
+public class TaskActivity extends AppCompatActivity implements Callback<TasksResponse> {
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements Callback<TasksRes
             mAdapter = new TasksAdapter(this);
             mRecyclerView.setAdapter(mAdapter);
             mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-            mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+            mTaskViewModel.getmPendingTask().observe(this, new Observer<List<Task>>() {
                 @Override
                 public void onChanged(@Nullable final List<Task> tasks) {
                     mAdapter.setDataSet(tasks);

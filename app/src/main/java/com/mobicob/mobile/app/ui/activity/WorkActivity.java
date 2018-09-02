@@ -25,7 +25,7 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
     private TasksAdapter mAdapter;
     private TaskViewModel mTaskViewModel;
-    private int countAllTask = 0;
+    private int countPendingTask = 0;
     private int countManagedTask = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,22 +50,27 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
 
        mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
-        mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+        mTaskViewModel.getmPendingTask().observe(WorkActivity.this, new Observer<List<Task>>() {
             @Override
-            public void onChanged(@Nullable final List<Task> tasks) {
-                mTaskViewModel.countPendingTask().observe(WorkActivity.this, new Observer<Integer>() {
-                    @Override
-                    public void onChanged(@Nullable Integer pendingTaskCount) {
-                        countAllTask = tasks.size();
-                        TextView txtNumAllTask = (TextView) findViewById(R.id.NumClientA);
-                        txtNumAllTask.setText(countAllTask+"");
-                        TextView txtNumPTask = (TextView) findViewById(R.id.NumClientP);
-                        txtNumPTask.setText(pendingTaskCount.toString());
-                        countManagedTask = countAllTask - pendingTaskCount.intValue();
-                        TextView txtNumMTask = (TextView) findViewById(R.id.NumClientGR);
-                        txtNumMTask.setText(countManagedTask+"");
-                    }
-                });
+            public void onChanged(@Nullable List<Task> pendingTask) {
+                countPendingTask = pendingTask.size();
+                TextView txtNumPTask = (TextView) findViewById(R.id.NumClientP);
+                txtNumPTask.setText(countPendingTask+"");
+
+                TextView txtNumAllTask = (TextView) findViewById(R.id.NumClientA);
+                txtNumAllTask.setText((countPendingTask+countManagedTask) + "");
+            }
+        });
+
+        mTaskViewModel.getmManagedTask().observe(WorkActivity.this, new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable List<Task> managedTask) {
+                countManagedTask = managedTask.size();
+                TextView txtNumMTask = (TextView) findViewById(R.id.NumClientGR);
+                txtNumMTask.setText(countManagedTask+"");
+
+                TextView txtNumAllTask = (TextView) findViewById(R.id.NumClientA);
+                txtNumAllTask.setText((countPendingTask+countManagedTask) + "");
             }
         });
     }
@@ -76,10 +81,16 @@ public class WorkActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.assignedClientMenu:
             break;
             case R.id.pendingClientMenu:
-                Intent intent = new Intent(this, MainActivity.class );
+                Intent intent = new Intent(this, TaskActivity.class );
                 startActivity(intent);
                 break;
             case R.id.reportedManageMenu:
+                if(countManagedTask != 0) {
+                    Intent intent2 = new Intent(this, ManagedTaskActivity.class);
+                    startActivity(intent2);
+                }else{
+                    showErrorMessage("No existen tareas gestionadas");
+                }
                 break;
         }
     }

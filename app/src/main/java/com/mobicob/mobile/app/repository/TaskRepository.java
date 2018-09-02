@@ -29,16 +29,16 @@ public class TaskRepository {
     private TaskDao mTaskDao;
     private MutableLiveData<List<Task>> mAllTasks;
     private Observer<List<Task>> taskObserver;
-    private LiveData<Integer> mManagedTask;
-    private LiveData<Integer> mPendingTask;
+    private LiveData<List<Task>> mManagedTask;
+    private LiveData<List<Task>> mPendingTask;
     public TaskRepository(Application application) {
         MobicobDB db = MobicobDB.getDatabase(application);
         mTaskDao = db.taskDao();
         mAllTasks = new MutableLiveData<List<Task>>();
         taskObserver =  new TaskObserver(application.getApplicationContext());
-        mManagedTask = mTaskDao.countManagedTask();
-        mPendingTask = mTaskDao.countPendingTask();
         mTaskDao.getAllTasks().observeForever(taskObserver);
+        mManagedTask = mTaskDao.getManagedTasks();
+        mPendingTask = mTaskDao.getPendingTasks();
     }
 
     @Override
@@ -47,13 +47,13 @@ public class TaskRepository {
         super.finalize();
     }
 
-    public LiveData<List<Task>> getAllTasks() {
-        return mAllTasks;
+    public LiveData<List<Task>> getmManagedTask() {
+        return mManagedTask;
     }
 
-    public LiveData<Integer> countManagedTask(){return mManagedTask;}
-
-    public LiveData<Integer> countPendingTask(){return mPendingTask;}
+    public LiveData<List<Task>> getmPendingTask() {
+        return mPendingTask;
+    }
 
     public void getTaskFromWS(Context context){
         MobicobApiServices api = RetrofitInstance.getApiServicesTask();

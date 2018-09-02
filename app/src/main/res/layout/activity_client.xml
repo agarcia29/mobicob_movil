@@ -21,7 +21,9 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="start"/>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/ViewAssignments"
         android:layout_width="match_parent"
@@ -30,18 +32,19 @@
         android:clipToPadding="false"
         android:gravity="center"
         android:orientation="vertical">
-        <Button
-            android:id="@+id/editGestionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:layout_gravity="right"
-            android:text="GESTIONAR" />
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recyclerViewAssignments"/>
 
+        <Button
+            android:id="@+id/editGestionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="7dp"
+            android:text="GESTIONAR" />
 
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

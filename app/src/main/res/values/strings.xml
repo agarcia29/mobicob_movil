@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mobicob</string>
+    <string name="app_name">Prueba Mobicob</string>
     <string name="hint_user">Nombre de usuario</string>
     <string name="hint_name">Nombre</string>
     <string name="hint_pass">Contraseña</string>

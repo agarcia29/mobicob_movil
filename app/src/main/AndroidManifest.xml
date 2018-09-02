@@ -20,7 +20,7 @@
         <activity
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.TaskActivity" />
         <activity android:name=".ui.activity.WorkActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,8 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ResultActivity" />
-        <activity android:name=".ui.activity.AssignmentsActivity" />
-        <activity android:name=".ui.activity.ManagedActivity"></activity>
+        <activity android:name=".ui.activity.ClientDataActivity" />
+        <activity android:name=".ui.activity.ManagedClientActivity" />
+        <activity android:name=".ui.activity.ManagedTaskActivity"></activity>
     </application>
 
 </manifest>

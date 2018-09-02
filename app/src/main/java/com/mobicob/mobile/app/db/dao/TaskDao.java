@@ -24,11 +24,11 @@ public interface TaskDao {
     @Query("SELECT * from Task ORDER BY id ASC")
     LiveData<List<Task>> getAllTasks();
 
-    @Query("SELECT COUNT(*) from Task where managementDate IS NULL ")
-    public LiveData<Integer> countPendingTask();
+    @Query("SELECT * from Task where managementDate IS NULL ORDER BY id ASC")
+    LiveData<List<Task>> getPendingTasks();
 
-    @Query("SELECT COUNT(*) from Task where managementDate IS NOT NULL")
-    public LiveData<Integer> countManagedTask();
+    @Query("SELECT * from Task where managementDate IS NOT NULL ORDER BY id ASC")
+    LiveData<List<Task>> getManagedTasks();
 
     @Update
     public void updateTasks(Task... tasks);

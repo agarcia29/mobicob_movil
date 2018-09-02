@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
+import com.mobicob.mobile.app.ui.activity.ClientDataActivity;
 import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.apiclient.JsonKeys;
 
@@ -58,7 +58,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.AssignmentsV
         holder.cardViewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AssignmentsActivity.class);
+                Intent intent = new Intent(context, ClientDataActivity.class);
                 intent.putExtra(JsonKeys.TASK, task);
                 context.startActivity(intent);
             }

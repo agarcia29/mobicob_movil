@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mobicob.mobile.app.R;
-import com.mobicob.mobile.app.ui.activity.AssignmentsActivity;
+import com.mobicob.mobile.app.ui.activity.ClientDataActivity;
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.db.entity.Task;
 import com.mobicob.mobile.app.model.TasksResponse;
@@ -96,7 +96,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.Assignment
         holder.cardViewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, AssignmentsActivity.class);
+                Intent intent = new Intent(context, ClientDataActivity.class);
                 context.startActivity(intent);
             }
         });
