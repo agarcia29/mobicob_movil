@@ -79,7 +79,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Id Usuario"
-                            android:text="1"
+                            android:text=""
                             android:textColor="#000" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -94,7 +94,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Fecha de Gestion"
-                            android:text="2018-08-13"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -103,16 +103,15 @@
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="15dp"
                             >
                         <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:entries="@array/managementType"
                             android:layout_gravity="right"
-                            android:autofillHints="Tipo de Gestion"
                             android:textColor="#000" />
                         </android.support.design.widget.TextInputLayout>
 
@@ -120,10 +119,10 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         >
                         <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
@@ -135,11 +134,11 @@
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="15dp"
                         >
 
                         <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
@@ -160,7 +159,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Entidad Reacaudadora"
-                            android:text="BRINKS"
+                            android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>
 
@@ -334,9 +333,10 @@
 
                     <Button
                         android:id="@+id/saveButton"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center"
                         android:text="GUARDAR" />
                 </LinearLayout>
             </ScrollView>

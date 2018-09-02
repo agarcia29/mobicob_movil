@@ -86,6 +86,7 @@ Los permisos de contactos son necesarios para proporcionar autocompletado de cor
 
     //Spinners
     <string-array name="managementType">
+        <item>Tipo de gestion</item>
         <item>Correo ELectronico</item>
         <item>No Gestionado</item>
         <item>Actualizar datos</item>
@@ -94,6 +95,7 @@ Los permisos de contactos son necesarios para proporcionar autocompletado de cor
         <item>Suspension</item>
     </string-array>
     <string-array name="resultType">
+        <item>Tipo de resultado</item>
         <item>Avaluo</item>
         <item>Positivo</item>
         <item>Negativo</item>
@@ -102,6 +104,7 @@ Los permisos de contactos son necesarios para proporcionar autocompletado de cor
         <item>Gestion no procede</item>
     </string-array>
     <string-array name="anomalyType">
+        <item>Tipo de anomalia</item>
         <item>Ninguna</item>
         <item>Dirreccion Errada</item>
         <item>Sin redes</item>
