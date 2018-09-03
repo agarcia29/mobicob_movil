@@ -4,7 +4,9 @@ public final class JsonKeys {
 
     public static final String DATA_RESPONSE_OBJECT         = "data";
     public static final String TASK_RESPONSE_ARRAY          = "tasks";
-
+    public static final String MANAGEMENT_TYPE_RESPONSE_ARRAY = "management_types";
+    public static final String RESULT_TYPE_RESPONSE_ARRAY          = "result_types";
+    public static final String ANOMALY_TYPE_RESPONSE_ARRAY          = "anomaly_types";
 
     public static final String TASK                         = "task";
     public static final String TASK_PERIOD                  = "period";
@@ -72,4 +74,13 @@ public final class JsonKeys {
     public static final String LOGIN_ID_OBJECT            ="id";
     public static final String LOGIN_CODE_OBJECT          ="code";
     public static final String LOGIN_NAME_OBJECT          ="name";
+
+    public static final String CODE_PARAMS            = "code";
+    public static final String NAME_PARAMS              = "name";
+    public static final String DESCRIPTION_PARAMS         = "description";
+    public static final String CREATED_AT_PARAMS        = "created_at";
+    public static final String UPDATE_AT_PARAMS         = "update_at";
+    public static final String ID_MANAGEMENT_TYPE       = "management_type_id";
+    public static final String ID_RESULT_TYPE       = "result_type_id";
+
 }

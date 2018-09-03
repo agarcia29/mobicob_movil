@@ -9,6 +9,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.mobicob.mobile.app.db.entity.AnomalyType;
+import com.mobicob.mobile.app.db.entity.ResultType;
 
 import java.util.List;
 
@@ -24,13 +25,14 @@ public interface AnomalyTypeDao {
     @Query("SELECT * from AnomalyType ORDER BY id ASC")
     LiveData<List<AnomalyType>> getAllAnomalyTypes();
 
+    @Query("SELECT * from AnomalyType WHERE resultId = :resultId ORDER BY id ASC")
+    public LiveData<List<AnomalyType>> getByResultType(int resultId);
+
+
     @Update
     public void updateAnomalyTypes(AnomalyType... anomalyTypes);
 
     @Delete
     public void deleteAnomalyTypes(AnomalyType... anomalyTypes);
-
-    @Query("SELECT * FROM anomalyType WHERE id = :id")
-    public LiveData<List<AnomalyType>> getAnomalyTypeById(int id);
 
 }

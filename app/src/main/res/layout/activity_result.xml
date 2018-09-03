@@ -270,7 +270,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:hint="Lect. Firma"
+                            android:hint="Lectura"
                             android:text=""
                             android:textColor="#000" />
                     </android.support.design.widget.TextInputLayout>

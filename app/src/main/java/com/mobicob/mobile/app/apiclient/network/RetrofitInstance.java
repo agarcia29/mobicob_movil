@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mobicob.mobile.app.apiclient.deserializers.ParamsDeserealizer;
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.apiclient.deserializers.LoginDeserializer;
@@ -67,7 +68,7 @@ public class RetrofitInstance {
         return API_SERVICES_TASK;
     }
 
-    public static MobicobApiServices getApiServicesResult(){
+    public static MobicobApiServices getApiServicesParams(){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -92,7 +93,7 @@ public class RetrofitInstance {
     public static Gson buildResultGson(){
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(TasksResponse.class, new TasksDeserializer());
+            gsonBuilder.registerTypeAdapter(TasksResponse.class, new ParamsDeserealizer());
             return gsonBuilder.create();
         }
         catch(Exception e){

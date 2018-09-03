@@ -140,7 +140,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 itemManagementTypeSelected = managementTypesList.get(i);
-
                 mResultTypeViewModel.getByMangementType(itemManagementTypeSelected.getId()).
                         observe(ResultActivity.this, new Observer<List<ResultType>>() {
                     @Override
@@ -164,7 +163,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 itemResultTypeSelected = resultTypeList.get(i);
-                mAnomalyTypeViewModel.getAllAnomalyTypes().
+                mAnomalyTypeViewModel.getByResultType(itemResultTypeSelected.getId()).
                         observe(ResultActivity.this, new Observer<List<AnomalyType>>() {
                     @Override
                     public void onChanged(@Nullable final List<AnomalyType> anomalyTypes) {

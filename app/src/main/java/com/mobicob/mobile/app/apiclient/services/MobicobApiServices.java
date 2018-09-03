@@ -2,6 +2,7 @@ package com.mobicob.mobile.app.apiclient.services;
 
 import com.mobicob.mobile.app.model.LoginResponse;
 import com.mobicob.mobile.app.db.entity.Task;
+import com.mobicob.mobile.app.model.ParamsResponse;
 import com.mobicob.mobile.app.model.ResultResponse;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
@@ -17,6 +18,9 @@ public interface MobicobApiServices {
 
     @GET("tasks")
     Call<TasksResponse> tasks(@Header("Authorization") String token);
+
+    @GET("params")
+    Call<ParamsResponse> params(@Header("Authorization") String token);
 
     @GET("result")
     Call<ResultResponse> result(@Header("Authorization") String token, @Body ResultRequestWrapper resultRequestWrapper);
