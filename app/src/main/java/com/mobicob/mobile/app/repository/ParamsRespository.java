@@ -95,11 +95,13 @@ public class ParamsRespository {
             public void onResponse(Call<ParamsResponse> call, Response<ParamsResponse> response) {
                 if (response.isSuccessful()) {
                     ParamsResponse paramsResponse = response.body();
-                    insert(paramsResponse.getManagementType(), paramsResponse.getResultType()
-                            , paramsResponse.getAnomalyType());
-                    mAllManagementType.setValue(paramsResponse.getManagementType());
-                    mAllResultType.setValue(paramsResponse.getResultType());
-                    mAllAnomalyType.setValue(paramsResponse.getAnomalyType());
+                    if(!paramsResponse.getManagementType().isEmpty() ||
+                       !paramsResponse.getResultType().isEmpty() ||
+                       !paramsResponse.getAnomalyType().isEmpty()) {
+
+                            insert(paramsResponse.getManagementType(), paramsResponse.getResultType()
+                                    , paramsResponse.getAnomalyType());
+                    }
                 }
             }
 
@@ -175,7 +177,7 @@ public class ParamsRespository {
         new ParamsRespository.InsertAsyncAnomalyType(mAnomalyTypeDao).execute(arrayAnomalyType);
     }
 
-    private class ManagementTypeObserver implements Observer<List<ManagementType>>{
+    public class ManagementTypeObserver implements Observer<List<ManagementType>>{
         private Context context;
 
         public ManagementTypeObserver(Context context){
@@ -184,9 +186,11 @@ public class ParamsRespository {
         @Override
         public void onChanged(@Nullable final List<ManagementType> managementTypes) {
             if(managementTypes==null || managementTypes.isEmpty()) {
-                getParamsFromWS(context);
+                needManagementsFromWS = true;
+                syncObserversBeforeCallWS(context);
             }
             else{
+                needManagementsFromWS = false;
                 mAllManagementType.setValue(managementTypes);
             }
         }
@@ -201,9 +205,11 @@ public class ParamsRespository {
         @Override
         public void onChanged(@Nullable final List<ResultType> resultTypes) {
             if(resultTypes==null || resultTypes.isEmpty()) {
-                getParamsFromWS(context);
+                needResultsFromWS = true;
+                syncObserversBeforeCallWS(context);
             }
             else{
+                needResultsFromWS = false;
                 mAllResultType.setValue(resultTypes);
             }
         }
@@ -218,11 +224,24 @@ public class ParamsRespository {
         @Override
         public void onChanged(@Nullable final List<AnomalyType> anomalytTypes) {
             if(anomalytTypes==null || anomalytTypes.isEmpty()) {
-                getParamsFromWS(context);
+                needAnomaliesFromWS = true;
+                syncObserversBeforeCallWS(context);
             }
             else{
+                needAnomaliesFromWS = false;
                 mAllAnomalyType.setValue(anomalytTypes);
             }
+        }
+    }
+
+    private boolean needAnomaliesFromWS = false;
+    private boolean needResultsFromWS = false;
+    private boolean needManagementsFromWS = false;
+
+    private void syncObserversBeforeCallWS(Context context){
+        if(needAnomaliesFromWS && needResultsFromWS && needManagementsFromWS)
+        {
+            getParamsFromWS(context);
         }
     }
 }

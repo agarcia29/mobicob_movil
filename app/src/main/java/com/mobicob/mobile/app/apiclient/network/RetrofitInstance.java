@@ -6,7 +6,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mobicob.mobile.app.apiclient.deserializers.ParamsDeserealizer;
+import com.mobicob.mobile.app.apiclient.deserializers.ResultDeserealizer;
 import com.mobicob.mobile.app.model.LoginResponse;
+import com.mobicob.mobile.app.model.ParamsResponse;
+import com.mobicob.mobile.app.model.ResultResponse;
 import com.mobicob.mobile.app.model.TasksResponse;
 import com.mobicob.mobile.app.apiclient.deserializers.LoginDeserializer;
 import com.mobicob.mobile.app.apiclient.deserializers.TasksDeserializer;
@@ -21,6 +24,7 @@ public class RetrofitInstance {
 
     private static MobicobApiServices API_SERVICES_LOGIN;
     private static MobicobApiServices API_SERVICES_TASK;
+    private static MobicobApiServices API_SERVICES_PARAMS;
     private static MobicobApiServices API_SERVICES_RESULT;
 
     private static String baseUrl = "https://mobicob-dev.herokuapp.com/v1/";
@@ -75,6 +79,28 @@ public class RetrofitInstance {
         OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
 
+        GsonConverterFactory paramsFactory;
+
+        paramsFactory = GsonConverterFactory.create(buildParamsGson());
+
+        if (API_SERVICES_PARAMS == null){
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(paramsFactory)
+                    .client(httpClient.build())
+                    .build();
+            API_SERVICES_PARAMS = retrofit.create(MobicobApiServices.class);
+        }
+        return API_SERVICES_PARAMS;
+    }
+
+    public static MobicobApiServices getApiServicesResult(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder httpClient= new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+
         GsonConverterFactory resultFactory;
 
         resultFactory = GsonConverterFactory.create(buildResultGson());
@@ -93,7 +119,19 @@ public class RetrofitInstance {
     public static Gson buildResultGson(){
         try {
             GsonBuilder gsonBuilder = new GsonBuilder();
-            gsonBuilder.registerTypeAdapter(TasksResponse.class, new ParamsDeserealizer());
+            gsonBuilder.registerTypeAdapter(ResultResponse.class, new ResultDeserealizer());
+            return gsonBuilder.create();
+        }
+        catch(Exception e){
+            Log.e("MOBICOB", e.getMessage(), e);
+        }
+        return null;
+    }
+
+    public static Gson buildParamsGson(){
+        try {
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            gsonBuilder.registerTypeAdapter(ParamsResponse.class, new ParamsDeserealizer());
             return gsonBuilder.create();
         }
         catch(Exception e){

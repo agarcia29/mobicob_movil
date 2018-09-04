@@ -26,6 +26,7 @@ public class Preferences {
     public static final String PREF_user_ID = "PREF_user_ID";
     public static final String PREF_user_EMAIL = "PREF_USER_EMAIL";
     public static final String PREF_user_TOKEN = "PREF_USER_TOKEN";
+    public static final String PREF_user_PARAMS = "PREF_WS_PARAMS";
 
     private final SharedPreferences mPrefs;
 
@@ -40,8 +41,15 @@ public class Preferences {
             editor.putString(PREF_user_ID, loginClient.getId()+"");
             editor.putString(PREF_user_EMAIL, loginClient.getEmail());
             editor.putString(PREF_user_TOKEN, loginClient.getJwt_token());
+            editor.putBoolean(PREF_user_PARAMS, false);
             editor.apply();
         }
+    }
+
+    public void paramsDownloaded(boolean sw) {
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putBoolean(PREF_user_PARAMS, true);
+        editor.apply();
     }
 
     public void saveResultData(ResultResponse resultTask) {
@@ -57,6 +65,7 @@ public class Preferences {
             editor.putString(PREF_user_ID, null);
             editor.putString(PREF_user_EMAIL, null);
             editor.putString(PREF_user_TOKEN, null);
+            editor.putBoolean(PREF_user_TOKEN, false);
             editor.apply();
     }
 
