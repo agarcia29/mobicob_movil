@@ -57,7 +57,7 @@ public class TaskRepository {
 
     public void getTaskFromWS(Context context){
         MobicobApiServices api = RetrofitInstance.getApiServicesTask();
-        Call<TasksResponse> call = api.tasks(Preferences.getToken(context));
+        Call<TasksResponse> call = api.tasks(Preferences.get(context).getToken());
         call.enqueue(new Callback<TasksResponse>() {
             @Override
             public void onResponse(Call<TasksResponse> call, Response<TasksResponse> response) {

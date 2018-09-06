@@ -12,14 +12,14 @@ import java.util.List;
 
 public class ManagementTypeViewModel extends AndroidViewModel {
 
-    private ParamsRespository mRepository;
+    private ManagementTypeRepository mManagementTypeRepository;
 
     private LiveData<List<ManagementType>> mAllManagementTypes;
 
     public ManagementTypeViewModel(Application application) {
         super(application);
-        mRepository = new ParamsRespository(application);
-        mAllManagementTypes = mRepository.getmManagementType();
+        mManagementTypeRepository = new ManagementTypeRepository(application);
+        mAllManagementTypes = mManagementTypeRepository.getmAllManagementType();
     }
 
     public LiveData<List<ManagementType>> getAllManagementTypes() { return mAllManagementTypes; }

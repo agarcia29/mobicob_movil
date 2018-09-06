@@ -1,62 +1,31 @@
 package com.mobicob.mobile.app.ui.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatSpinner;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.mobicob.mobile.app.R;
 import com.mobicob.mobile.app.apiclient.JsonKeys;
-import com.mobicob.mobile.app.apiclient.network.RetrofitInstance;
-import com.mobicob.mobile.app.apiclient.services.MobicobApiServices;
 import com.mobicob.mobile.app.db.entity.AnomalyType;
 import com.mobicob.mobile.app.db.entity.ManagementType;
 import com.mobicob.mobile.app.db.entity.ResultType;
 import com.mobicob.mobile.app.db.entity.Task;
-import com.mobicob.mobile.app.db.entity.User;
-import com.mobicob.mobile.app.model.LoginResponse;
-import com.mobicob.mobile.app.model.ResultResponse;
-import com.mobicob.mobile.app.session.Preferences;
 import com.mobicob.mobile.app.viewmodel.AnomalyTypeViewModel;
 import com.mobicob.mobile.app.viewmodel.ManagementTypeViewModel;
 import com.mobicob.mobile.app.viewmodel.ResultTypeViewModel;
-import com.mobicob.mobile.app.viewmodel.TaskViewModel;
-import com.mobicob.mobile.app.wrapper.LoginRequestWrapper;
-import com.mobicob.mobile.app.wrapper.ResultRequestWrapper;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -96,10 +65,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
     private List<ManagementType> managementTypesList;
     private ArrayAdapter<ManagementType> adapterManagementSpinner;
-    private List<ResultType> resultTypeList;
+    private List<ResultType> resultTypesList;
     private ArrayAdapter<ResultType> adapterResultSpinner;
-    private List<AnomalyType> anomalyTypeList;
+    private List<AnomalyType> anomalyTypesList;
     private ArrayAdapter<AnomalyType> adapterAnomalySpinner;
+
+    private List<ResultType> filteredResultTypesList;
+    private List<AnomalyType> filteredAnomalyTypesList;
 
     private ManagementTypeViewModel mManagementTypeViewModel;
     private ResultTypeViewModel mResultTypeViewModel;
@@ -117,8 +89,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         initListeners();
 
         managementTypesList = new ArrayList<>();
-        resultTypeList = new ArrayList<>();
-        anomalyTypeList = new ArrayList<>();
+        resultTypesList = new ArrayList<>();
+        anomalyTypesList = new ArrayList<>();
+
+        filteredResultTypesList = new ArrayList<>();
+        filteredAnomalyTypesList = new ArrayList<>();
 
         mManagementTypeViewModel = ViewModelProviders.of(this).get(ManagementTypeViewModel.class);
         mResultTypeViewModel = ViewModelProviders.of(this).get(ResultTypeViewModel.class);
@@ -130,6 +105,19 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 managementTypesList = managementTypes;
             }
         });
+        mResultTypeViewModel.getAllResultTypes().observe(this, new Observer<List<ResultType>>() {
+            @Override
+            public void onChanged(@Nullable final List<ResultType> resultTypes) {
+                resultTypesList = resultTypes;
+            }
+        });
+        mAnomalyTypeViewModel.getAllAnomalyTypes().observe(this, new Observer<List<AnomalyType>>() {
+            @Override
+            public void onChanged(@Nullable final List<AnomalyType> anomalyTypes) {
+                anomalyTypesList = anomalyTypes;
+            }
+        });
+
 
         adapterManagementSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, managementTypesList);
         adapterManagementSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -140,13 +128,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 itemManagementTypeSelected = managementTypesList.get(i);
-                mResultTypeViewModel.getByMangementType(itemManagementTypeSelected.getId()).
-                        observe(ResultActivity.this, new Observer<List<ResultType>>() {
-                    @Override
-                    public void onChanged(@Nullable final List<ResultType> resultTypes) {
-                        resultTypeList = resultTypes;
+                filteredResultTypesList = new ArrayList<>();
+                filteredAnomalyTypesList = new ArrayList<>();
+                for (ResultType result:resultTypesList){
+                    if(result.getManagementId() == itemManagementTypeSelected.getId()){
+                        filteredResultTypesList.add(result);
                     }
-                });
+                }
             }
 
             @Override
@@ -155,21 +143,20 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        adapterResultSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, resultTypeList);
+        adapterResultSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredResultTypesList);
         adapterResultSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         resultTypeSpinner.setAdapter(adapterResultSpinner);
 
         resultTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                itemResultTypeSelected = resultTypeList.get(i);
-                mAnomalyTypeViewModel.getByResultType(itemResultTypeSelected.getId()).
-                        observe(ResultActivity.this, new Observer<List<AnomalyType>>() {
-                    @Override
-                    public void onChanged(@Nullable final List<AnomalyType> anomalyTypes) {
-                        anomalyTypeList = anomalyTypes;
+                itemResultTypeSelected = filteredResultTypesList.get(i);
+                filteredAnomalyTypesList = new ArrayList<>();
+                for (AnomalyType anomaly:anomalyTypesList){
+                    if(anomaly.getResultId() == itemResultTypeSelected.getId()){
+                        filteredAnomalyTypesList.add(anomaly);
                     }
-                });
+                }
             }
 
             @Override
@@ -178,14 +165,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        adapterAnomalySpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, anomalyTypeList);
+        adapterAnomalySpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredAnomalyTypesList);
         adapterAnomalySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         anomalyTypeSpinner.setAdapter(adapterAnomalySpinner);
 
         anomalyTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                itemAnomalyTypeSelected = anomalyTypeList.get(i);
+                itemAnomalyTypeSelected = filteredAnomalyTypesList.get(i);
             }
 
             @Override

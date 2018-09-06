@@ -46,10 +46,15 @@ public class Preferences {
         }
     }
 
-    public void paramsDownloaded(boolean sw) {
+    public void paramsDownloaded() {
         SharedPreferences.Editor editor = mPrefs.edit();
         editor.putBoolean(PREF_user_PARAMS, true);
         editor.apply();
+    }
+
+    public boolean needDownloadParams() {
+        boolean paramsDownloaded = mPrefs.getBoolean(PREF_user_PARAMS, false);
+        return !paramsDownloaded;
     }
 
     public void saveResultData(ResultResponse resultTask) {
@@ -65,13 +70,13 @@ public class Preferences {
             editor.putString(PREF_user_ID, null);
             editor.putString(PREF_user_EMAIL, null);
             editor.putString(PREF_user_TOKEN, null);
-            editor.putBoolean(PREF_user_TOKEN, false);
+            editor.putBoolean(PREF_user_PARAMS, false);
             editor.apply();
     }
 
-    public static String getToken(Context context){
+    public String getToken(){
         String token = "Bearer ";
-        token = token.concat(Preferences.get(context).mPrefs.getString(PREF_user_TOKEN, null));
+        token = token.concat(mPrefs.getString(PREF_user_TOKEN, null));
         return token;
     }
 }
