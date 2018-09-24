@@ -1,5 +1,6 @@
 package com.mobicob.mobile.app.ui.activity;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
@@ -88,10 +89,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         initViews();
         initListeners();
 
-        managementTypesList = new ArrayList<>();
         resultTypesList = new ArrayList<>();
         anomalyTypesList = new ArrayList<>();
 
+        managementTypesList = new ArrayList<>();
         filteredResultTypesList = new ArrayList<>();
         filteredAnomalyTypesList = new ArrayList<>();
 
@@ -99,12 +100,30 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         mResultTypeViewModel = ViewModelProviders.of(this).get(ResultTypeViewModel.class);
         mAnomalyTypeViewModel = ViewModelProviders.of(this).get(AnomalyTypeViewModel.class);
 
+
+        adapterManagementSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, managementTypesList);
+        adapterManagementSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterManagementSpinner.setNotifyOnChange(true);
+        managementTypeSpinner.setAdapter(adapterManagementSpinner);
+
+
+        adapterResultSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredResultTypesList);
+        adapterResultSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        resultTypeSpinner.setAdapter(adapterResultSpinner);
+
+        adapterAnomalySpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredAnomalyTypesList);
+        adapterAnomalySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        anomalyTypeSpinner.setAdapter(adapterAnomalySpinner);
+
         mManagementTypeViewModel.getAllManagementTypes().observe(this, new Observer<List<ManagementType>>() {
             @Override
             public void onChanged(@Nullable final List<ManagementType> managementTypes) {
                 managementTypesList = managementTypes;
+                adapterManagementSpinner.clear();
+                adapterManagementSpinner.addAll(managementTypes);
             }
         });
+
         mResultTypeViewModel.getAllResultTypes().observe(this, new Observer<List<ResultType>>() {
             @Override
             public void onChanged(@Nullable final List<ResultType> resultTypes) {
@@ -119,11 +138,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         });
 
 
-        adapterManagementSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, managementTypesList);
-        adapterManagementSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterManagementSpinner.setNotifyOnChange(true);
-        managementTypeSpinner.setAdapter(adapterManagementSpinner);
-
         managementTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -131,10 +145,12 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 filteredResultTypesList = new ArrayList<>();
                 filteredAnomalyTypesList = new ArrayList<>();
                 for (ResultType result:resultTypesList){
-                    if(result.getManagementId() == itemManagementTypeSelected.getId()){
+                    if(result.belongsTo(itemManagementTypeSelected.getId())){
                         filteredResultTypesList.add(result);
                     }
                 }
+                adapterResultSpinner.clear();
+                adapterResultSpinner.addAll(filteredResultTypesList);
             }
 
             @Override
@@ -142,10 +158,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
-        adapterResultSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredResultTypesList);
-        adapterResultSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        resultTypeSpinner.setAdapter(adapterResultSpinner);
 
         resultTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -153,10 +165,12 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 itemResultTypeSelected = filteredResultTypesList.get(i);
                 filteredAnomalyTypesList = new ArrayList<>();
                 for (AnomalyType anomaly:anomalyTypesList){
-                    if(anomaly.getResultId() == itemResultTypeSelected.getId()){
+                    if(anomaly.belongsTo(itemResultTypeSelected.getId())){
                         filteredAnomalyTypesList.add(anomaly);
                     }
                 }
+                adapterAnomalySpinner.clear();
+                adapterAnomalySpinner.addAll(filteredAnomalyTypesList);
             }
 
             @Override
@@ -164,10 +178,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
-        adapterAnomalySpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, filteredAnomalyTypesList);
-        adapterAnomalySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        anomalyTypeSpinner.setAdapter(adapterAnomalySpinner);
 
         anomalyTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

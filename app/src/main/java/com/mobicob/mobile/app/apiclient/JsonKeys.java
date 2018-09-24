@@ -80,7 +80,7 @@ public final class JsonKeys {
     public static final String DESCRIPTION_PARAMS         = "description";
     public static final String CREATED_AT_PARAMS        = "created_at";
     public static final String UPDATE_AT_PARAMS         = "update_at";
-    public static final String ID_MANAGEMENT_TYPE       = "management_type_id";
-    public static final String ID_RESULT_TYPE       = "result_type_id";
+    public static final String MANAGEMENT_TYPE_IDS       = "management_types";
+    public static final String RESULT_TYPE_IDS       = "result_types";
 
 }

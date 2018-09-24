@@ -16,16 +16,13 @@ import java.util.List;
 public interface ResultTypeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(ResultType resultType);
+    void insert(ResultType... resultType);
 
     @Query("DELETE FROM ResultType")
     void deleteAll();
 
     @Query("SELECT * from ResultType ORDER BY id ASC")
     LiveData<List<ResultType>> getAllResultTypes();
-
-    @Query("SELECT * from ResultType WHERE managementId = :managementId ORDER BY id ASC")
-    public LiveData<List<ResultType>> getByMangementType(int managementId);
 
     @Update
     public void updateResultTypes(ResultType... resultTypes);

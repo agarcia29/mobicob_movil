@@ -5,6 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Entity
 public class AnomalyType implements Serializable {
@@ -15,7 +16,7 @@ public class AnomalyType implements Serializable {
     private String code;
     private String name;
     private String description;
-    private int resultId;
+    private String resultIds;
 
     public AnomalyType() {
     }
@@ -53,11 +54,21 @@ public class AnomalyType implements Serializable {
         this.description = description;
     }
 
-    public int getResultId() {
-        return resultId;
+    public String getResultIds() {
+        return resultIds;
     }
 
-    public void setResultId(int resultId) {
-        this.resultId = resultId;
+    public void setResultIds(String resultIds) {
+        this.resultIds = resultIds;
+    }
+
+    public boolean belongsTo(int resultId){
+        if (resultIds==null) return false;
+        return Arrays.asList(resultIds.split(",")).contains(resultId+"");
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
     }
 }

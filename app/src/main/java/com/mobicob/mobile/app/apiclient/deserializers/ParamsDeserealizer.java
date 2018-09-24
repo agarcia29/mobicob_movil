@@ -54,12 +54,12 @@ public class ParamsDeserealizer implements JsonDeserializer<ParamsResponse> {
         JsonObject campaign;
 
         JsonObject data = responseJson.getAsJsonObject(JsonKeys.DATA_RESPONSE_OBJECT);
-        JsonArray ManagementTypeArray = data.getAsJsonArray(JsonKeys.MANAGEMENT_TYPE_RESPONSE_ARRAY);
-        JsonArray ResultTypeArray = data.getAsJsonArray(JsonKeys.RESULT_TYPE_RESPONSE_ARRAY);
-        JsonArray AnomalyTypeArray = data.getAsJsonArray(JsonKeys.ANOMALY_TYPE_RESPONSE_ARRAY);
-        for (int i = 0; i < ManagementTypeArray.size() ; i++) {
+        JsonArray managementTypeArray = data.getAsJsonArray(JsonKeys.MANAGEMENT_TYPE_RESPONSE_ARRAY);
+        JsonArray resultTypeArray = data.getAsJsonArray(JsonKeys.RESULT_TYPE_RESPONSE_ARRAY);
+        JsonArray anomalyTypeArray = data.getAsJsonArray(JsonKeys.ANOMALY_TYPE_RESPONSE_ARRAY);
+        for (int i = 0; i < managementTypeArray.size() ; i++) {
             tempManagementType = new ManagementType();
-            tempObject = ManagementTypeArray.get(i).getAsJsonObject();
+            tempObject = managementTypeArray.get(i).getAsJsonObject();
             tempManagementType.setId(getAsInt(tempObject.get(JsonKeys.LOGIN_ID)));
             tempManagementType.setCode(getAsString(tempObject.get(JsonKeys.CODE_PARAMS)));
             tempManagementType.setName(getAsString(tempObject.get(JsonKeys.NAME_PARAMS)));
@@ -67,26 +67,26 @@ public class ParamsDeserealizer implements JsonDeserializer<ParamsResponse> {
 
             managementTypes.add(tempManagementType);
         }
-        for (int i = 0; i < ManagementTypeArray.size() ; i++) {
+        for (int i = 0; i < resultTypeArray.size() ; i++) {
             tempResultType = new ResultType();
-            tempObject = ManagementTypeArray.get(i).getAsJsonObject();
+            tempObject = resultTypeArray.get(i).getAsJsonObject();
             tempResultType.setId(getAsInt(tempObject.get(JsonKeys.LOGIN_ID)));
             tempResultType.setCode(getAsString(tempObject.get(JsonKeys.CODE_PARAMS)));
             tempResultType.setName(getAsString(tempObject.get(JsonKeys.NAME_PARAMS)));
             tempResultType.setDescription(getAsString(tempObject.get(JsonKeys.DESCRIPTION_PARAMS)));
-
+            tempResultType.setManagementIds(getAsString(tempObject.get(JsonKeys.MANAGEMENT_TYPE_IDS)));
             resultTypes.add(tempResultType);
 
 
         }
-        for (int i = 0; i < ManagementTypeArray.size() ; i++) {
+        for (int i = 0; i < anomalyTypeArray.size() ; i++) {
             tempAnomalyType = new AnomalyType();
-            tempObject = ManagementTypeArray.get(i).getAsJsonObject();
+            tempObject = anomalyTypeArray.get(i).getAsJsonObject();
             tempAnomalyType.setId(getAsInt(tempObject.get(JsonKeys.LOGIN_ID)));
             tempAnomalyType.setCode(getAsString(tempObject.get(JsonKeys.CODE_PARAMS)));
             tempAnomalyType.setName(getAsString(tempObject.get(JsonKeys.NAME_PARAMS)));
             tempAnomalyType.setDescription(getAsString(tempObject.get(JsonKeys.DESCRIPTION_PARAMS)));
-
+            tempAnomalyType.setResultIds(getAsString(tempObject.get(JsonKeys.RESULT_TYPE_IDS)));
             anomalyTypes.add(tempAnomalyType);
         }
         paramsResp.setManagementType(managementTypes);

@@ -5,6 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Entity
 public class ResultType implements Serializable {
@@ -15,7 +16,7 @@ public class ResultType implements Serializable {
     private String code;
     private String name;
     private String description;
-    private int managementId;
+    private String managementIds;
 
     @NonNull
     public int getId() {
@@ -50,11 +51,21 @@ public class ResultType implements Serializable {
         this.description = description;
     }
 
-    public int getManagementId() {
-        return managementId;
+    public String getManagementIds() {
+        return managementIds;
     }
 
-    public void setManagementId(int managementId) {
-        this.managementId = managementId;
+    public void setManagementIds(String managementIds) {
+        this.managementIds = managementIds;
+    }
+
+    public boolean belongsTo(int managementId){
+        if (managementIds==null) return false;
+        return Arrays.asList(managementIds.split(",")).contains(managementId+"");
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
     }
 }

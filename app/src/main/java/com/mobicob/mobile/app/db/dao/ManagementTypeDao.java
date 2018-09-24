@@ -16,7 +16,7 @@ import java.util.List;
 public interface ManagementTypeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(ManagementType managementType);
+    void insert(ManagementType... managementType);
 
     @Query("DELETE FROM ManagementType")
     void deleteAll();

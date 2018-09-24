@@ -67,18 +67,18 @@ public class ParamsRespository {
     }
 
     public void insertManagementType (List<ManagementType> managementTypes) {
-        ManagementType[] arrayManagementType = managementTypes.toArray(new ManagementType[0]);
+        ManagementType[] arrayManagementType = managementTypes.toArray(new ManagementType[managementTypes.size()]);
         new ParamsRespository.InsertAsyncMangementType(mManagementTypeDao).execute(arrayManagementType);
     }
 
     public void insertResultType (List<ResultType> resultTypes) {
 
-        ResultType[] arrayResultType = resultTypes.toArray(new ResultType[0]);
+        ResultType[] arrayResultType = resultTypes.toArray(new ResultType[resultTypes.size()]);
         new ParamsRespository.InsertAsyncResultType(mResultTypeDao).execute(arrayResultType);
     }
 
     public void insertAnomalyType (List<AnomalyType> anomalyTypes) {
-        AnomalyType[] arrayAnomalyType = anomalyTypes.toArray(new AnomalyType[0]);
+        AnomalyType[] arrayAnomalyType = anomalyTypes.toArray(new AnomalyType[anomalyTypes.size()]);
         new ParamsRespository.InsertAsyncAnomalyType(mAnomalyTypeDao).execute(arrayAnomalyType);
     }
 
@@ -93,7 +93,7 @@ public class ParamsRespository {
 
         @Override
         protected Void doInBackground(final ManagementType... params) {
-            mAsyncManagementDao.insert(params[0]);
+            mAsyncManagementDao.insert(params);
             return null;
         }
     }
@@ -108,7 +108,7 @@ public class ParamsRespository {
 
         @Override
         protected Void doInBackground(final ResultType... params) {
-            mAsyncResultDao.insert(params[0]);
+            mAsyncResultDao.insert(params);
             return null;
         }
     }
@@ -123,7 +123,7 @@ public class ParamsRespository {
 
         @Override
         protected Void doInBackground(final AnomalyType... params) {
-            mAsyncAnomalyDao.insert(params[0]);
+            mAsyncAnomalyDao.insert(params);
             return null;
         }
     }

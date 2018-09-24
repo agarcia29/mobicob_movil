@@ -17,17 +17,13 @@ import java.util.List;
 public interface AnomalyTypeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(AnomalyType anomalyType);
+    void insert(AnomalyType... anomalyType);
 
     @Query("DELETE FROM AnomalyType")
     void deleteAll();
 
     @Query("SELECT * from AnomalyType ORDER BY id ASC")
     LiveData<List<AnomalyType>> getAllAnomalyTypes();
-
-    @Query("SELECT * from AnomalyType WHERE resultId = :resultId ORDER BY id ASC")
-    public LiveData<List<AnomalyType>> getByResultType(int resultId);
-
 
     @Update
     public void updateAnomalyTypes(AnomalyType... anomalyTypes);
